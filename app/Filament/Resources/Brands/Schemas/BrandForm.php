@@ -2,10 +2,9 @@
 
 namespace App\Filament\Resources\Brands\Schemas;
 
-use Filament\Schemas\Schema;
-
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
 
 class BrandForm
 {
@@ -14,13 +13,13 @@ class BrandForm
         return $schema
             ->components([
                 TextInput::make('name')
-               ->required()
-               ->maxLength(255),
-               FileUpload::make('logo')
-               ->image()
-               ->directory('brands')
-               ->required()
-               ->nullable()
+                    ->required()
+                    ->maxLength(255),
+                FileUpload::make('logo')
+                    ->image()
+                    ->directory('brands')
+                    ->required()
+                    ->nullable(),
             ]);
     }
 }
