@@ -13,36 +13,39 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Atribut yang dapat diisi secara massal.
+     * Field-field ini dapat diisi menggunakan method create() atau fill()
      *
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name',      // Nama lengkap user
+        'email',     // Alamat email user (unik, digunakan untuk login)
+        'password',  // Password user yang di-hash
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Atribut yang harus disembunyikan untuk serialisasi.
+     * Field-field ini tidak akan disertakan ketika model dikonversi ke JSON/array
      *
      * @var list<string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password',        // Jangan pernah expose password di response API
+        'remember_token',  // Jangan pernah expose remember token untuk keamanan
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Dapatkan atribut yang harus di-cast.
+     * Otomatis konversi tipe atribut ketika mengakses/menyetting
      *
      * @return array<string, string>
      */
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'email_verified_at' => 'datetime',  // Cast ke instance Carbon datetime
+            'password' => 'hashed',             // Otomatis hash saat di-assign
         ];
     }
 }
