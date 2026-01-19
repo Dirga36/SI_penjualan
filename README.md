@@ -8,8 +8,12 @@
 ### 1. Install dependensi
 
 ```powershell
-npm install --legacy-peer-deps
 composer install
+```
+
+saat ini ada beberapa dependensi yang jadul, gunakan command berikut jika diminta oleh composer untuk update
+```powershell
+composer update
 ```
 
 ### 2. Generate dan sesuaikan file .env

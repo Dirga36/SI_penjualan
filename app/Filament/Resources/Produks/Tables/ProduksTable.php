@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Produks\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
@@ -11,6 +12,7 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
@@ -20,49 +22,48 @@ class ProduksTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable(),
-                ImageColumn::make('photos.photo')
-                    ->circular()
-                    ->stacked()
-                    ->Limit(1)
-                    ->LimitedRemainingText(),
                 ImageColumn::make('thumbnail')
-                    ->square(),
-                TextColumn::make('price')
-                    ->money()
-                    ->sortable(),
-                TextColumn::make('sizes.size')
+                    ->label('Thumbnail')
+                    ->square()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('stock')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('brand.name')
-                    ->searchable(),
                 TextColumn::make('category.name')
-                    ->searchable(),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
+                    ->label('Category')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('created_at')
-                    ->dateTime()
+                    ->toggleable(),
+                TextColumn::make('brand.name')
+                    ->label('Brand')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
+                TextColumn::make('price')
+                    ->label('Price')
+                    ->money('IDR')
+                    ->sortable(),
+                TextColumn::make('stock')
+                    ->label('Stock')
+                    ->sortable(),
                 IconColumn::make('is_popular')
+                    ->label('Popular')
                     ->boolean(),
+                TextColumn::make('created_at')
+                    ->label('Created')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TrashedFilter::make(),
+                SelectFilter::make('category')
+                    ->relationship('category', 'name'),
+                SelectFilter::make('brand')
+                    ->relationship('brand', 'name'),
             ])
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

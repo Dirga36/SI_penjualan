@@ -26,4 +26,6 @@ class PromoCode extends Model
         'code',              // String kode promo unik (contoh: "SUMMER2026")
         'discount_ammount',  // Jumlah diskon tetap dalam unit mata uang dasar
     ];
+
+    public $timestamps = true; // Supaya bisa diakses oleh Filament
 }
