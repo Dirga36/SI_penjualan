@@ -10,13 +10,17 @@ use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
+
 class BrandsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')->searchable(),
+                ImageColumn::make('logo')->circular(),
             ])
             ->filters([
                 TrashedFilter::make(),
