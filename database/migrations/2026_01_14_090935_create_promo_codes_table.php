@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 /**
  * Migration Tabel Promo Codes
- * 
+ *
  * Membuat tabel promotional codes untuk fungsi diskon.
  * Menyimpan kode diskon yang dapat digunakan kembali dan diterapkan pelanggan saat checkout.
  */

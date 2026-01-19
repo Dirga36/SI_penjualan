@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 /**
  * Migration Tabel Users dan Authentication
- * 
+ *
  * Membuat tiga tabel untuk sistem autentikasi Laravel:
  * 1. users - Akun user aplikasi
  * 2. password_reset_tokens - Token sementara untuk fungsi reset password

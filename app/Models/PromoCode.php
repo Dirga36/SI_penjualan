@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Model PromoCode
- * 
+ *
  * Merepresentasikan kode diskon promosi yang dapat digunakan pelanggan pada transaksi.
  * Kode memberikan potongan diskon dalam jumlah tetap dari total pembelian.
  */
@@ -23,7 +23,7 @@ class PromoCode extends Model
      * Field-field ini dapat diisi menggunakan method create() atau fill()
      */
     protected $fillable = [
-        "code",              // String kode promo unik (contoh: "SUMMER2026")
-        "discount_ammount",  // Jumlah diskon tetap dalam unit mata uang dasar
+        'code',              // String kode promo unik (contoh: "SUMMER2026")
+        'discount_ammount',  // Jumlah diskon tetap dalam unit mata uang dasar
     ];
 }

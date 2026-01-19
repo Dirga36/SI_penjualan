@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 /**
  * Migration Tabel Categories
- * 
+ *
  * Membuat tabel categories untuk mengorganisir produk ke dalam grup.
  * Kategori ditampilkan dengan icon di UI untuk identifikasi visual.
  */

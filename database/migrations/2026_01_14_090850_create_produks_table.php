@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 /**
  * Migration Tabel Produks (Products)
- * 
+ *
  * Membuat tabel products utama - entitas sentral dalam sistem e-commerce.
  * Produk terkait dengan kategori dan brand, memiliki harga, stok, dan flag popularitas.
  */
@@ -26,13 +26,13 @@ return new class extends Migration
             $table->unsignedBigInteger('price');          // Harga produk (dalam unit mata uang dasar)
             $table->unsignedBigInteger('stock');          // Jumlah stok tersedia
             $table->boolean('is_popular');                // Flag untuk produk unggulan/populer
-            
+
             // Foreign key ke categories - cascade delete ketika kategori dihapus
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
-            
+
             // Foreign key ke brands - cascade delete ketika brand dihapus
             $table->foreignId('brand_id')->constrained()->cascadeOnDelete();
-            
+
             $table->softDeletes();                        // deleted_at untuk soft deletion
             $table->timestamps();                         // created_at dan updated_at
         });

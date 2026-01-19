@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Model ProductTransaction
- * 
+ *
  * Merepresentasikan transaksi pembelian pelanggan (booking) dalam sistem.
  * Menyimpan informasi pelanggan, detail produk, harga, dan status pembayaran.
  * Setiap transaksi memiliki ID booking unik dengan prefix TJH.
@@ -45,10 +45,10 @@ class ProductTransaction extends Model
 
     /**
      * Generate ID transaksi unik dengan prefix TJH
-     * 
+     *
      * Membuat ID booking unik dalam format: TJH12345
      * Terus generate ID random sampai menemukan yang tidak ada di database.
-     * 
+     *
      * @return string ID transaksi unik (contoh: "TJH54321")
      */
     public static function generateUniqueTrxId(): string
@@ -56,14 +56,15 @@ class ProductTransaction extends Model
         $prefix = 'TJH';
         do {
             // Generate angka random 5 digit antara 10001-99999
-            $randomString = $prefix . mt_rand(10001, 99999);
+            $randomString = $prefix.mt_rand(10001, 99999);
         } while (self::where('booking_trx_id', $randomString)->exists());
+
         return $randomString;
     }
 
     /**
      * Relasi: Transaksi dimiliki oleh satu Produk
-     * 
+     *
      * @return BelongsTo Produk yang dibeli dalam transaksi ini
      */
     public function produk(): BelongsTo
@@ -73,7 +74,7 @@ class ProductTransaction extends Model
 
     /**
      * Relasi: Transaksi dimiliki oleh satu Promo Code (opsional)
-     * 
+     *
      * @return BelongsTo Kode promo yang diterapkan pada transaksi ini (jika ada)
      */
     public function promoCode(): BelongsTo

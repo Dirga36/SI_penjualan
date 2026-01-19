@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 /**
  * Migration Tabel Brands
- * 
+ *
  * Membuat tabel brands untuk manufaktur/merek produk.
  * Brand berelasi dengan produk dan ditampilkan dengan logo.
  */

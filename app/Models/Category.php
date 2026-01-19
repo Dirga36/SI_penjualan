@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Model Category
- * 
+ *
  * Merepresentasikan kategori produk dalam sistem e-commerce.
  * Kategori mengorganisir produk dan ditampilkan dengan icon custom untuk UI.
  */
@@ -19,7 +19,7 @@ class Category extends Model
     // HasFactory: Mengaktifkan pola factory untuk testing dan seeding
     // SoftDeletes: Mengimplementasikan soft deletion (menandai sebagai terhapus tanpa menghapus dari database)
     use HasFactory, SoftDeletes;
-    
+
     /**
      * Atribut yang dapat diisi secara massal
      * Field-field ini dapat diisi menggunakan method create() atau fill()
@@ -32,7 +32,7 @@ class Category extends Model
 
     /**
      * Relasi: Category memiliki banyak Produk
-     * 
+     *
      * @return HasMany Koleksi produk yang termasuk dalam kategori ini
      */
     public function produks(): HasMany
@@ -42,11 +42,11 @@ class Category extends Model
 
     /**
      * Otomatis generate slug ketika name di-set
-     * 
+     *
      * Mutator ini mengintersep penugasan nama dan membuat slug yang URL-friendly.
      * Contoh: "Sepatu Lari" menjadi "sepatu-lari"
-     * 
-     * @param string $value Nama kategori yang sedang di-set
+     *
+     * @param  string  $value  Nama kategori yang sedang di-set
      */
     public function setNameAttribute($value)
     {
@@ -54,4 +54,3 @@ class Category extends Model
         $this->attributes['slug'] = Str::slug(title: $value);
     }
 }
-

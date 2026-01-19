@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Model Brand
- * 
+ *
  * Merepresentasikan brand/merek produk dalam sistem e-commerce.
  * Brand berelasi dengan banyak produk dan memiliki logo branding.
  */
@@ -25,18 +25,18 @@ class Brand extends Model
      * Field-field ini dapat diisi menggunakan method create() atau fill()
      */
     protected $fillable = [
-        "name",   // Nama brand (contoh: "Nike", "Adidas")
-        "slug",   // Versi URL-friendly dari nama (dibuat otomatis)
-        "logo"    // Path ke file gambar logo brand
+        'name',   // Nama brand (contoh: "Nike", "Adidas")
+        'slug',   // Versi URL-friendly dari nama (dibuat otomatis)
+        'logo',    // Path ke file gambar logo brand
     ];
 
     /**
      * Otomatis generate slug ketika name di-set
-     * 
+     *
      * Mutator ini mengintersep penugasan nama dan membuat slug yang URL-friendly.
      * Contoh: "Nike Air" menjadi "nike-air"
-     * 
-     * @param string $value Nama brand yang sedang di-set
+     *
+     * @param  string  $value  Nama brand yang sedang di-set
      */
     public function setNameAttribute($value)
     {
@@ -46,7 +46,7 @@ class Brand extends Model
 
     /**
      * Relasi: Brand memiliki banyak Produk
-     * 
+     *
      * @return HasMany Koleksi produk yang dimiliki brand ini
      */
     public function produks(): HasMany
