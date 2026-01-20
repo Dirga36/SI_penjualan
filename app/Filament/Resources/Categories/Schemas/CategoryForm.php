@@ -6,20 +6,23 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
+// Konfigurasi form untuk kategori
 class CategoryForm
 {
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
+                // Input untuk nama kategori
                 TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
+                    ->required()            // Wajib diisi
+                    ->maxLength(255),       // Maksimal 255 karakter
+                // Upload file untuk ikon kategori
                 FileUpload::make('icon')
-                    ->image()
-                    ->directory('categories')
-                    ->required()
-                    ->nullable(),
+                    ->image()               // Hanya menerima file gambar
+                    ->directory('categories') // Disimpan di folder categories
+                    ->required()            // Wajib diisi
+                    ->nullable(),           // Bisa null di database
             ]);
     }
 }
