@@ -16,60 +16,65 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
+// Konfigurasi tabel untuk menampilkan daftar produk
 class ProduksTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            // Kolom-kolom yang ditampilkan di tabel
             ->columns([
                 ImageColumn::make('thumbnail')
                     ->label('Thumbnail')
-                    ->square()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->square()              // Bentuk persegi
+                    ->toggleable(isToggledHiddenByDefault: true), // Dapat disembunyikan, default tersembunyi
                 TextColumn::make('name')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable()          // Dapat dicari
+                    ->sortable(),           // Dapat diurutkan
                 TextColumn::make('category.name')
                     ->label('Category')
-                    ->sortable()
-                    ->toggleable(),
+                    ->sortable()            // Dapat diurutkan
+                    ->toggleable(),         // Dapat disembunyikan/ditampilkan
                 TextColumn::make('brand.name')
                     ->label('Brand')
-                    ->sortable()
-                    ->toggleable(),
+                    ->sortable()            // Dapat diurutkan
+                    ->toggleable(),         // Dapat disembunyikan/ditampilkan
                 TextColumn::make('price')
                     ->label('Price')
-                    ->money('IDR')
-                    ->sortable(),
+                    ->money('IDR')          // Format mata uang IDR
+                    ->sortable(),           // Dapat diurutkan
                 TextColumn::make('stock')
                     ->label('Stock')
-                    ->sortable(),
+                    ->sortable(),           // Dapat diurutkan
                 IconColumn::make('is_popular')
                     ->label('Popular')
-                    ->boolean(),
+                    ->boolean(),            // Tampil sebagai ikon boolean
                 TextColumn::make('created_at')
                     ->label('Created')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->dateTime()            // Format tanggal dan waktu
+                    ->sortable()            // Dapat diurutkan
+                    ->toggleable(isToggledHiddenByDefault: true), // Dapat disembunyikan, default tersembunyi
             ])
+            // Filter untuk tabel
             ->filters([
-                TrashedFilter::make(),
+                TrashedFilter::make(), // Filter untuk menampilkan data yang sudah dihapus
                 SelectFilter::make('category')
-                    ->relationship('category', 'name'),
+                    ->relationship('category', 'name'), // Filter berdasarkan kategori
                 SelectFilter::make('brand')
-                    ->relationship('brand', 'name'),
+                    ->relationship('brand', 'name'),    // Filter berdasarkan brand
             ])
+            // Aksi yang tersedia untuk setiap baris data
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
-                DeleteAction::make(),
+                ViewAction::make(),   // Tombol untuk melihat detail
+                EditAction::make(),   // Tombol untuk mengedit
+                DeleteAction::make(), // Tombol untuk menghapus
             ])
+            // Aksi massal yang bisa dilakukan pada data terpilih
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
+                    DeleteBulkAction::make(),       // Hapus banyak data sekaligus
+                    ForceDeleteBulkAction::make(),  // Hapus permanen banyak data
+                    RestoreBulkAction::make(),      // Restore banyak data yang terhapus
                 ]),
             ]);
     }

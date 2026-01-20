@@ -16,22 +16,28 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+// Resource untuk mengelola kode promo di panel admin Filament
 class PromoCodeResource extends Resource
 {
+    // Model Eloquent yang digunakan oleh resource ini
     protected static ?string $model = PromoCode::class;
 
+    // Ikon yang ditampilkan di menu navigasi (ikon hadiah)
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedGift;
 
+    // Konfigurasi form untuk create dan edit kode promo
     public static function form(Schema $schema): Schema
     {
         return PromoCodeForm::configure($schema);
     }
 
+    // Konfigurasi tabel untuk menampilkan daftar kode promo
     public static function table(Table $table): Table
     {
         return PromoCodesTable::configure($table);
     }
 
+    // Relasi yang tersedia untuk resource ini (kosong untuk saat ini)
     public static function getRelations(): array
     {
         return [
@@ -39,6 +45,7 @@ class PromoCodeResource extends Resource
         ];
     }
 
+    // Mendefinisikan halaman-halaman yang tersedia untuk resource kode promo
     public static function getPages(): array
     {
         return [
@@ -48,8 +55,10 @@ class PromoCodeResource extends Resource
         ];
     }
 
+    // Query builder untuk route binding, termasuk record yang di-soft delete
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {
+        // Menampilkan juga data yang sudah dihapus (soft delete)
         return parent::getRecordRouteBindingEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,

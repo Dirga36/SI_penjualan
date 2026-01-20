@@ -16,22 +16,28 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+// Resource untuk mengelola produk di panel admin Filament
 class ProdukResource extends Resource
 {
+    // Model Eloquent yang digunakan oleh resource ini
     protected static ?string $model = Produk::class;
 
+    // Ikon yang ditampilkan di menu navigasi (ikon tas belanja)
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShoppingBag;
 
+    // Konfigurasi form untuk create dan edit produk
     public static function form(Schema $schema): Schema
     {
         return ProdukForm::configure($schema);
     }
 
+    // Konfigurasi tabel untuk menampilkan daftar produk
     public static function table(Table $table): Table
     {
         return ProduksTable::configure($table);
     }
 
+    // Relasi yang tersedia untuk resource ini (kosong untuk saat ini)
     public static function getRelations(): array
     {
         return [
@@ -39,6 +45,7 @@ class ProdukResource extends Resource
         ];
     }
 
+    // Mendefinisikan halaman-halaman yang tersedia untuk resource produk
     public static function getPages(): array
     {
         return [
@@ -48,8 +55,10 @@ class ProdukResource extends Resource
         ];
     }
 
+    // Query builder untuk route binding, termasuk record yang di-soft delete
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {
+        // Menampilkan juga data yang sudah dihapus (soft delete)
         return parent::getRecordRouteBindingEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,

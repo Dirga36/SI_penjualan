@@ -14,28 +14,33 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
+// Konfigurasi tabel untuk menampilkan daftar brand
 class BrandsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            // Kolom-kolom yang ditampilkan di tabel
             ->columns([
-                TextColumn::make('name')->searchable(),
-                ImageColumn::make('logo')->circular(),
+                TextColumn::make('name')->searchable(),  // Kolom nama dengan fitur pencarian
+                ImageColumn::make('logo')->circular(),   // Kolom logo berbentuk bulat
             ])
+            // Filter untuk tabel
             ->filters([
-                TrashedFilter::make(),
+                TrashedFilter::make(), // Filter untuk menampilkan data yang sudah dihapus
             ])
+            // Aksi yang tersedia untuk setiap baris data
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
-                DeleteAction::make(),
+                ViewAction::make(),   // Tombol untuk melihat detail
+                EditAction::make(),   // Tombol untuk mengedit
+                DeleteAction::make(), // Tombol untuk menghapus
             ])
+            // Aksi massal yang bisa dilakukan pada data terpilih
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
+                    DeleteBulkAction::make(),       // Hapus banyak data sekaligus
+                    ForceDeleteBulkAction::make(),  // Hapus permanen banyak data
+                    RestoreBulkAction::make(),      // Restore banyak data yang terhapus
                 ]),
             ]);
     }
