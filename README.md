@@ -1,3 +1,8 @@
+# SI_penjualan
+SI_penjualan (Sistem Informasi Penjualan) adalah proyek aplikasi e-commerce. Digunakan untuk keperluan latihan ujikom.
+
+repositori GitHub: [https://github.com/Dirga36/SI_penjualan](https://github.com/Dirga36/SI_penjualan)
+
 ## Getting Started
 
 ### Deps 
