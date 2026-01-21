@@ -45,7 +45,9 @@ class ProduksTable
                     ->sortable(),           // Dapat diurutkan
                 TextColumn::make('stock')
                     ->label('Stock')
+                    ->suffix(' pc(s)')
                     ->sortable(),           // Dapat diurutkan
+
                 IconColumn::make('is_popular')
                     ->label('Popular')
                     ->boolean(),            // Tampil sebagai ikon boolean

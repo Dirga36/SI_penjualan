@@ -19,6 +19,7 @@ class BrandForm
                     ->maxLength(255),       // Maksimal 255 karakter
                 // Upload file untuk logo brand
                 FileUpload::make('logo')
+                    ->required()
                     ->image()               // Hanya menerima file gambar
                     ->directory('brands')   // Disimpan di folder brands
                     ->required()            // Wajib diisi
