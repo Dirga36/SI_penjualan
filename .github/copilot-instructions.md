@@ -117,3 +117,6 @@ When adding relationships:
 - **Routes**: `routes/web.php` - Request routing (currently minimal)
 - **Config**: `config/` - Laravel framework configuration
 - **Composer Scripts**: Check `composer.json` `scripts` key for custom commands
+
+## Commenting & Documentation
+- Any comments should be written in Indonesian
