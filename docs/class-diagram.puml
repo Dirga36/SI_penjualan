@@ -1,0 +1,209 @@
+@startuml SI_Penjualan_Class_Diagram
+
+title SI Penjualan (Sales Information System) - UML Class Diagram
+
+' --- Legend ---
+legend top left
+  **SI Penjualan E-Commerce System**
+  Laravel 12 Application
+  
+  **Relationships:**
+  ──> : Association (BelongsTo)
+  ──* : Composition (HasMany)
+  
+  **Conventions:**
+  + : public
+  - : private
+  # : protected
+  ~ : package/default
+endlegend
+
+' --- User Class ---
+class User {
+  + id: bigInteger {PK}
+  + name: string
+  + email: string {unique}
+  + email_verified_at: timestamp
+  + password: string {hashed}
+  + remember_token: string
+  + created_at: timestamp
+  + updated_at: timestamp
+  --
+  + casts(): array
+}
+
+' --- Category Class ---
+class Category {
+  + id: bigInteger {PK}
+  + name: string
+  + slug: string
+  + icon: string
+  + deleted_at: timestamp
+  + created_at: timestamp
+  + updated_at: timestamp
+  --
+  + setNameAttribute(value: string): void
+  + produks(): HasMany
+}
+
+' --- Brand Class ---
+class Brand {
+  + id: bigInteger {PK}
+  + name: string
+  + slug: string
+  + logo: string
+  + deleted_at: timestamp
+  + created_at: timestamp
+  + updated_at: timestamp
+  --
+  + setNameAttribute(value: string): void
+  + produks(): HasMany
+}
+
+' --- Produk Class (Product) ---
+class Produk {
+  + id: bigInteger {PK}
+  + name: string
+  + slug: string
+  + thumbnail: string
+  + about: text
+  + price: unsignedBigInteger
+  + stock: unsignedBigInteger
+  + is_popular: boolean
+  + category_id: bigInteger {FK}
+  + brand_id: bigInteger {FK}
+  + deleted_at: timestamp
+  + created_at: timestamp
+  + updated_at: timestamp
+  --
+  + setNameAttribute(value: string): void
+  + brand(): BelongsTo
+  + category(): BelongsTo
+  + photos(): HasMany
+  + sizes(): HasMany
+}
+
+' --- ProdukPhoto Class ---
+class ProdukPhoto {
+  + id: bigInteger {PK}
+  + photo: string
+  + produk_id: bigInteger {FK}
+  + deleted_at: timestamp
+  + created_at: timestamp
+  + updated_at: timestamp
+}
+
+' --- ProdukSize Class ---
+class ProdukSize {
+  + id: bigInteger {PK}
+  + size: string
+  + produk_id: bigInteger {FK}
+  + deleted_at: timestamp
+  + created_at: timestamp
+  + updated_at: timestamp
+}
+
+' --- PromoCode Class ---
+class PromoCode {
+  + id: bigInteger {PK}
+  + code: string
+  + discount_ammount: unsignedBigInteger
+  + deleted_at: timestamp
+  + created_at: timestamp
+  + updated_at: timestamp
+}
+
+' --- ProductTransaction Class ---
+class ProductTransaction {
+  + id: bigInteger {PK}
+  + name: string
+  + phone: string
+  + email: string
+  + booking_trx_id: string {unique}
+  + city: string
+  + post_code: string
+  + address: text
+  + quantity: unsignedBigInteger
+  + produk_size: unsignedBigInteger
+  + sub_total_amount: unsignedBigInteger
+  + grand_total_amount: unsignedBigInteger
+  + discount_amount: unsignedBigInteger
+  + is_paid: boolean
+  + proof: string
+  + produk_id: bigInteger {FK}
+  + promo_code_id: bigInteger {FK, nullable}
+  + deleted_at: timestamp
+  + created_at: timestamp
+  + updated_at: timestamp
+  --
+  + generateUniqueTrxId(): string {static}
+  + produk(): BelongsTo
+  + promoCode(): BelongsTo
+}
+
+' --- Relationships ---
+
+' Category to Produk: One-to-Many
+Category "1" --o "0..*" Produk : has
+
+' Brand to Produk: One-to-Many
+Brand "1" --o "0..*" Produk : has
+
+' Produk to ProdukPhoto: One-to-Many (Composition)
+Produk "1" *-- "0..*" ProdukPhoto : contains
+
+' Produk to ProdukSize: One-to-Many (Composition)
+Produk "1" *-- "0..*" ProdukSize : contains
+
+' Produk to ProductTransaction: One-to-Many
+Produk "1" --o "0..*" ProductTransaction : is ordered in
+
+' PromoCode to ProductTransaction: One-to-Many (Optional)
+PromoCode "0..1" --o "0..*" ProductTransaction : applies discount to
+
+' --- Notes ---
+note right of Produk
+  **Central Entity**
+  Core product entity managing
+  all product information, 
+  inventory, and relationships.
+  
+  **Auto-generates slug from name**
+  **Supports soft deletion**
+end note
+
+note right of ProductTransaction
+  **Transaction/Booking Entity**
+  Manages customer orders
+  with unique TJH-prefixed ID.
+  
+  **ID Format: TJH12345**
+  **Supports promo codes**
+  **Tracks payment status**
+end note
+
+note right of Category
+  **Product Categorization**
+  Auto-generates URL-friendly
+  slug from name attribute.
+  
+  **Soft deletion enabled**
+end note
+
+note right of Brand
+  **Product Branding**
+  Auto-generates URL-friendly
+  slug from name attribute.
+  
+  **Soft deletion enabled**
+end note
+
+note left of PromoCode
+  **Discount Management**
+  Fixed amount discount codes
+  for customer promotions.
+  
+  **Applied to transactions**
+end note
+
+@enduml
