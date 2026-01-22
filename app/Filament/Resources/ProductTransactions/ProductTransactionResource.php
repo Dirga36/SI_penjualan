@@ -15,7 +15,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use UnitEnum;
+//use UnitEnum;
 
 class ProductTransactionResource extends Resource
 {
@@ -23,6 +23,8 @@ class ProductTransactionResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShoppingCart;
 
+    // Varian dropdown
+    /*
     protected static ?string $navigationLabel = 'Transactions';
 
     protected static string|UnitEnum|null $navigationGroup = 'Sales';
@@ -32,6 +34,7 @@ class ProductTransactionResource extends Resource
     protected static ?string $modelLabel = 'Transaction';
 
     protected static ?string $pluralModelLabel = 'Transactions';
+    */
 
     public static function form(Schema $schema): Schema
     {
