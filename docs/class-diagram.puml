@@ -4,18 +4,18 @@ title SI Penjualan (Sales Information System) - UML Class Diagram
 
 ' --- Legend ---
 legend top left
-  **SI Penjualan E-Commerce System**
-  Laravel 12 Application
+  **Sistem E-Commerce SI Penjualan**
+  Aplikasi Laravel 12
   
-  **Relationships:**
-  ──> : Association (BelongsTo)
-  ──* : Composition (HasMany)
+  **Relasi:**
+  ──> : Asosiasi (BelongsTo)
+  ──* : Komposisi (HasMany)
   
-  **Conventions:**
-  + : public
-  - : private
-  # : protected
-  ~ : package/default
+  **Konvensi:**
+  + : publik
+  - : privat
+  # : terlindungi
+  ~ : paket/default
 endlegend
 
 ' --- User Class ---
@@ -163,47 +163,47 @@ PromoCode "0..1" --o "0..*" ProductTransaction : applies discount to
 
 ' --- Notes ---
 note right of Produk
-  **Central Entity**
-  Core product entity managing
-  all product information, 
-  inventory, and relationships.
+  **Entitas Pusat**
+  Entitas produk inti yang mengelola
+  semua informasi produk, 
+  inventori, dan relasi.
   
-  **Auto-generates slug from name**
-  **Supports soft deletion**
+  **Otomatis membuat slug dari nama**
+  **Mendukung penghapusan lunak**
 end note
 
 note right of ProductTransaction
-  **Transaction/Booking Entity**
-  Manages customer orders
-  with unique TJH-prefixed ID.
+  **Entitas Transaksi/Booking**
+  Mengelola pesanan pelanggan
+  dengan ID unik berprefix TJH.
   
-  **ID Format: TJH12345**
-  **Supports promo codes**
-  **Tracks payment status**
+  **Format ID: TJH12345**
+  **Mendukung kode promo**
+  **Melacak status pembayaran**
 end note
 
 note right of Category
-  **Product Categorization**
-  Auto-generates URL-friendly
-  slug from name attribute.
+  **Kategorisasi Produk**
+  Otomatis membuat slug yang
+  ramah-URL dari atribut nama.
   
-  **Soft deletion enabled**
+  **Penghapusan lunak diaktifkan**
 end note
 
 note right of Brand
-  **Product Branding**
-  Auto-generates URL-friendly
-  slug from name attribute.
+  **Branding Produk**
+  Otomatis membuat slug yang
+  ramah-URL dari atribut nama.
   
-  **Soft deletion enabled**
+  **Penghapusan lunak diaktifkan**
 end note
 
 note left of PromoCode
-  **Discount Management**
-  Fixed amount discount codes
-  for customer promotions.
+  **Manajemen Diskon**
+  Kode diskon dengan jumlah tetap
+  untuk promosi pelanggan.
   
-  **Applied to transactions**
+  **Diterapkan pada transaksi**
 end note
 
 @enduml
