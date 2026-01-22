@@ -4,6 +4,8 @@
 
 This document describes the UML class diagram for the **SI Penjualan** (Sales Information System), a Laravel 12 e-commerce application for managing products, categories, brands, and customer transactions.
 
+> **Note**: The class diagram accurately reflects the actual database schema and model implementations, including field names as they exist in the codebase. For example, `discount_ammount` is spelled as-is in the actual database schema.
+
 ## Diagram Files
 
 - **PlantUML Source**: [`class-diagram.puml`](class-diagram.puml)
@@ -173,7 +175,7 @@ The diagram identifies **8 main classes** with their relationships:
 **Attributes**:
 - `id` (PK): Primary key
 - `code`: Unique promo code string (e.g., "SUMMER2026")
-- `discount_ammount`: Fixed discount amount
+- `discount_ammount`: Fixed discount amount (Note: field name uses 'ammount' as per actual database schema)
 - `deleted_at`: Soft deletion timestamp
 
 **Relationships**:
