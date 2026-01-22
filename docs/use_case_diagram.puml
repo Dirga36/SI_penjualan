@@ -1,0 +1,83 @@
+@startuml SI_Penjualan_Use_Case_Diagram
+!theme plain
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+left to right direction
+
+actor "Customer\n(Pelanggan)" as Customer #4A90E2
+actor "Admin" as Admin #E27A4A
+
+rectangle "SI Penjualan E-Commerce System" {
+    
+    package "Product Management" {
+        usecase "Manage Products" as UC1
+        usecase "Manage Categories" as UC2
+        usecase "Manage Brands" as UC3
+        usecase "Manage Product Photos" as UC4
+        usecase "Manage Product Sizes" as UC5
+    }
+    
+    package "Shopping Features" {
+        usecase "Browse Products" as UC6
+        usecase "View Product Details" as UC7
+        usecase "Filter by Category" as UC8
+        usecase "Filter by Brand" as UC9
+        usecase "View Popular Products" as UC10
+    }
+    
+    package "Transaction Management" {
+        usecase "Create Transaction/\nBooking" as UC11
+        usecase "Apply Promo Code" as UC12
+        usecase "Upload Payment Proof" as UC13
+        usecase "View Transaction Status" as UC14
+        usecase "Process Payment" as UC15
+    }
+    
+    package "Promotion Management" {
+        usecase "Manage Promo Codes" as UC16
+        usecase "View Discount Details" as UC17
+    }
+}
+
+' Customer relationships
+Customer --> UC6
+Customer --> UC7
+Customer --> UC8
+Customer --> UC9
+Customer --> UC10
+Customer --> UC11
+Customer --> UC12
+Customer --> UC13
+Customer --> UC14
+Customer --> UC17
+
+' Admin relationships
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC16
+Admin --> UC15
+Admin --> UC14
+
+' Use case dependencies
+UC7 ..> UC4 : <<includes>>
+UC7 ..> UC5 : <<includes>>
+UC11 ..> UC12 : <<extends>>
+UC11 ..> UC17 : <<includes>>
+UC1 ..> UC4 : <<includes>>
+UC1 ..> UC5 : <<includes>>
+
+note right of UC11
+  Transaction with unique
+  TJH-prefixed booking ID
+end note
+
+note right of UC1
+  CRUD operations with
+  soft delete support
+end note
+
+@enduml

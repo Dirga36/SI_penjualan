@@ -3,6 +3,12 @@ SI_penjualan (Sistem Informasi Penjualan) adalah proyek aplikasi e-commerce. Dig
 
 repositori GitHub: [https://github.com/Dirga36/SI_penjualan](https://github.com/Dirga36/SI_penjualan)
 
+## 📚 Documentation
+
+- **[Use Case Diagram](docs/USE_CASE_DIAGRAM.md)** - Complete use case diagram with actor descriptions and use case details
+- **[Main Features](docs/MAIN_FEATURES.md)** - Comprehensive list of application features categorized by functionality
+- **[PlantUML Diagram](docs/use_case_diagram.puml)** - PlantUML source for the use case diagram
+
 ## Getting Started
 
 ### Deps 
