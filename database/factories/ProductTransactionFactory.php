@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\ProductTransaction;
 use App\Models\Produk;
 use App\Models\PromoCode;
-use App\Models\ProductTransaction;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

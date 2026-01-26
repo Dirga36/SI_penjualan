@@ -4,11 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\ProductTransaction;
 use App\Models\Produk;
 use App\Models\ProdukPhoto;
 use App\Models\ProdukSize;
 use App\Models\PromoCode;
-use App\Models\ProductTransaction;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
