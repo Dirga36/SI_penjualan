@@ -50,7 +50,11 @@ class ProduksTable
 
                 IconColumn::make('is_popular')
                     ->label('Popular')
-                    ->boolean(),            // Tampil sebagai ikon boolean
+                    ->boolean()             // Tampil sebagai ikon boolean
+                    ->trueColor('success')
+                    ->falseColor('danger')
+                    ->trueIcon('success')
+                    ->falseIcon('danger'),
                 TextColumn::make('created_at')
                     ->label('Created')
                     ->dateTime()            // Format tanggal dan waktu
@@ -61,9 +65,11 @@ class ProduksTable
             ->filters([
                 TrashedFilter::make(), // Filter untuk menampilkan data yang sudah dihapus
                 SelectFilter::make('category')
-                    ->relationship('category', 'name'), // Filter berdasarkan kategori
+                    ->relationship('category', 'name') // Filter berdasarkan kategori
+                    ->label('category'),
                 SelectFilter::make('brand')
-                    ->relationship('brand', 'name'),    // Filter berdasarkan brand
+                    ->relationship('brand', 'name')    // Filter berdasarkan brand
+                    ->label('brand'),
             ])
             // Aksi yang tersedia untuk setiap baris data
             ->recordActions([
