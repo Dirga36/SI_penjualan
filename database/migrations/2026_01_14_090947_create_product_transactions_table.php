@@ -43,7 +43,7 @@ return new class extends Migration
             $table->unsignedBigInteger('discount_amount')->default(0); // Total diskon yang diterapkan
 
             // Status Pembayaran
-            $table->boolean('is_paid');                      // Flag penyelesaian pembayaran
+            $table->boolean('is_paid')->nullable();          // Flag penyelesaian pembayaran
 
             // Foreign Keys
             // Link ke product - cascade delete ketika produk dihapus

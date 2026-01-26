@@ -122,8 +122,19 @@ class ProductTransactionForm
                                         $subTotalAmmount = $get('sub_total_ammount');
                                         $promoCode = PromoCode::find($state);
                                         $discount = $promoCode ? $promoCode->discount_ammount : 0;
+                                        $set('discount_ammount', $discount); // Tambahkan baris ini
                                         $grandTotalAmmount = $subTotalAmmount - $discount;
                                         $set('grand_total_ammount', $grandTotalAmmount);
+                                    }
+                                )
+                                ->afterStateHydrated(
+                                    function ($state, callable $get, callable $set) {
+                                        // Untuk menampilkan discount saat edit form
+                                        if ($state) {
+                                            $promoCode = PromoCode::find($state);
+                                            $discount = $promoCode ? $promoCode->discount_ammount : 0;
+                                            $set('discount_ammount', $discount);
+                                        }
                                     }
                                 ),
                         ]),

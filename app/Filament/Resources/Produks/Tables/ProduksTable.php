@@ -48,14 +48,14 @@ class ProduksTable
                     ->label('Stock')
                     ->suffix(' pc(s)')
                     ->sortable(),           // Dapat diurutkan
-
                 IconColumn::make('is_popular')
                     ->label('Popular')
                     ->boolean()             // Tampil sebagai ikon boolean
+                    ->sortable()            // Dapat diurutkan
                     // ->trueColor('success')
                     // ->falseColor('danger')
                     ->trueIcon(Heroicon::OutlinedCheckCircle)
-                    ->falseIcon(Heroicon::OutlinedExclamationCircle),
+                    ->falseIcon(Heroicon::OutlinedXCircle),
                 TextColumn::make('created_at')
                     ->label('Created')
                     ->dateTime()            // Format tanggal dan waktu
