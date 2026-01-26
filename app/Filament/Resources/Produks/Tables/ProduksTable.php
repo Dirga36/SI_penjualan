@@ -52,8 +52,8 @@ class ProduksTable
                 IconColumn::make('is_popular')
                     ->label('Popular')
                     ->boolean()             // Tampil sebagai ikon boolean
-                    //->trueColor('success')
-                    //->falseColor('danger')
+                    // ->trueColor('success')
+                    // ->falseColor('danger')
                     ->trueIcon(Heroicon::OutlinedCheckCircle)
                     ->falseIcon(Heroicon::OutlinedExclamationCircle),
                 TextColumn::make('created_at')

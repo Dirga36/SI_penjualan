@@ -115,15 +115,15 @@ class ProductTransactionForm
                                 ->relationship('promoCode', 'code')
                                 ->searchable()
                                 ->preload()
-                                //->nullable()
+                                // ->nullable()
                                 ->live()
                                 ->afterStateUpdated(
                                     function ($state, callable $get, callable $set) {
                                         $subTotalAmmount = $get('sub_total_ammount');
                                         $promoCode = PromoCode::find($state);
                                         $discount = $promoCode ? $promoCode->discount_ammount : 0;
-                                        $grandTotalAmmount = $subTotalAmmount- $discount;
-                                        $set('grand_total_ammount', $grandTotalAmmount);                                        
+                                        $grandTotalAmmount = $subTotalAmmount - $discount;
+                                        $set('grand_total_ammount', $grandTotalAmmount);
                                     }
                                 ),
                         ]),
@@ -186,8 +186,8 @@ class ProductTransactionForm
                                 ->label('Sub Total')
                                 ->prefix('IDR')
                                 ->numeric()
-                                //->minValue(0)
-                                //->required()
+                                // ->minValue(0)
+                                // ->required()
                                 ->readOnly(),
 
                             TextInput::make('discount_ammount')
@@ -200,8 +200,8 @@ class ProductTransactionForm
                                 ->label('Grand Total')
                                 ->prefix('IDR')
                                 ->numeric()
-                                //->minValue(0)
-                                //->required()
+                                // ->minValue(0)
+                                // ->required()
                                 ->readOnly(),
 
                             ToggleButtons::make('is_paid')
