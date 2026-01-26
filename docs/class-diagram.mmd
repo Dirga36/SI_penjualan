@@ -1,0 +1,141 @@
+```mermaid
+classDiagram
+    %% SI Penjualan (Sales Information System) - Class Diagram
+    %% Mermaid Format for GitHub and Markdown Support
+
+    class User {
+        +bigInteger id PK
+        +string name
+        +string email
+        +timestamp email_verified_at
+        +string password
+        +string remember_token
+        +timestamp created_at
+        +timestamp updated_at
+        +casts() array
+    }
+
+    class Category {
+        +bigInteger id PK
+        +string name
+        +string slug
+        +string icon
+        +timestamp deleted_at
+        +timestamp created_at
+        +timestamp updated_at
+        +setNameAttribute(value) void
+        +produks() HasMany
+    }
+
+    class Brand {
+        +bigInteger id PK
+        +string name
+        +string slug
+        +string logo
+        +timestamp deleted_at
+        +timestamp created_at
+        +timestamp updated_at
+        +setNameAttribute(value) void
+        +produks() HasMany
+    }
+
+    class Produk {
+        +bigInteger id PK
+        +string name
+        +string slug
+        +string thumbnail
+        +text about
+        +unsignedBigInteger price
+        +unsignedBigInteger stock
+        +boolean is_popular
+        +bigInteger category_id FK
+        +bigInteger brand_id FK
+        +timestamp deleted_at
+        +timestamp created_at
+        +timestamp updated_at
+        +setNameAttribute(value) void
+        +brand() BelongsTo
+        +category() BelongsTo
+        +photos() HasMany
+        +sizes() HasMany
+    }
+
+    class ProdukPhoto {
+        +bigInteger id PK
+        +string photo
+        +bigInteger produk_id FK
+        +timestamp deleted_at
+        +timestamp created_at
+        +timestamp updated_at
+    }
+
+    class ProdukSize {
+        +bigInteger id PK
+        +string size
+        +bigInteger produk_id FK
+        +timestamp deleted_at
+        +timestamp created_at
+        +timestamp updated_at
+    }
+
+    class PromoCode {
+        +bigInteger id PK
+        +string code
+        +unsignedBigInteger discount_ammount
+        +timestamp deleted_at
+        +timestamp created_at
+        +timestamp updated_at
+    }
+
+    class ProductTransaction {
+        +bigInteger id PK
+        +string name
+        +string phone
+        +string email
+        +string booking_trx_id
+        +string city
+        +string post_code
+        +text address
+        +unsignedBigInteger quantity
+        +unsignedBigInteger produk_size
+        +unsignedBigInteger sub_total_amount
+        +unsignedBigInteger grand_total_amount
+        +unsignedBigInteger discount_amount
+        +boolean is_paid
+        +string proof
+        +bigInteger produk_id FK
+        +bigInteger promo_code_id FK
+        +timestamp deleted_at
+        +timestamp created_at
+        +timestamp updated_at
+        +generateUniqueTrxId()$ string
+        +produk() BelongsTo
+        +promoCode() BelongsTo
+    }
+
+    %% Relationships
+    Category "1" --> "0..*" Produk : has
+    Brand "1" --> "0..*" Produk : has
+    Produk "1" *-- "0..*" ProdukPhoto : contains
+    Produk "1" *-- "0..*" ProdukSize : contains
+    Produk "1" --> "0..*" ProductTransaction : ordered in
+    PromoCode "0..1" --> "0..*" ProductTransaction : applies discount to
+
+    %% Notes
+    note for Produk "Central entity managing products,
+    inventory, and relationships.
+    Auto-generates slug from name."
+
+    note for ProductTransaction "Manages customer orders with
+    unique TJH-prefixed ID.
+    Supports promo codes."
+
+    note for Category "Product categorization.
+    Auto-generates URL-friendly slug."
+
+    note for Brand "Product branding.
+    Auto-generates URL-friendly slug."
+
+    note for PromoCode "Fixed amount discount codes
+    for customer promotions."
+```
