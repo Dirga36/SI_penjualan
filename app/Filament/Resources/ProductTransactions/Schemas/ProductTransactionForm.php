@@ -7,7 +7,6 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
@@ -32,10 +31,10 @@ class ProductTransactionForm
                             // ID Transaksi (auto-generate)
                             TextInput::make('booking_trx_id')
                                 ->label('Booking Transaction ID')
-                                //->default(fn () => ProductTransaction::generateUniqueTrxId())
-                                //->disabled()
-                                //->dehydrated()
-                                //->columnSpanFull()
+                                // ->default(fn () => ProductTransaction::generateUniqueTrxId())
+                                // ->disabled()
+                                // ->dehydrated()
+                                // ->columnSpanFull()
                                 ->required()
                                 ->maxLength(200),
 
@@ -214,8 +213,8 @@ class ProductTransactionForm
                                     true => Heroicon::OutlinedPencil,
                                     false => Heroicon::OutlinedClock,
                                 ])
-                                //->onColor('success')
-                                //->offColor('danger')
+                                // ->onColor('success')
+                                // ->offColor('danger')
                                 ->default(false),
 
                             FileUpload::make('proof')
