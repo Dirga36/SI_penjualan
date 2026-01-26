@@ -9,6 +9,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -51,10 +52,10 @@ class ProduksTable
                 IconColumn::make('is_popular')
                     ->label('Popular')
                     ->boolean()             // Tampil sebagai ikon boolean
-                    ->trueColor('success')
-                    ->falseColor('danger')
-                    ->trueIcon('success')
-                    ->falseIcon('danger'),
+                    //->trueColor('success')
+                    //->falseColor('danger')
+                    ->trueIcon(Heroicon::OutlinedCheckCircle)
+                    ->falseIcon(Heroicon::OutlinedExclamationCircle),
                 TextColumn::make('created_at')
                     ->label('Created')
                     ->dateTime()            // Format tanggal dan waktu

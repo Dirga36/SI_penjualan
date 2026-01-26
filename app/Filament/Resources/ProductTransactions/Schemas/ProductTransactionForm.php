@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\ProductTransactions\Schemas;
 
 use App\Models\ProductTransaction;
+use App\Models\Produk;
+use App\Models\PromoCode;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -56,12 +58,12 @@ class ProductTransactionForm
                                         $set('price', $price);
                                         $set('sub_total_ammount', $subTotalAmmount);
 
-                                        $discount = $get('discount') ?? 0;
+                                        $discount = $get('discount_ammount') ?? 0;
                                         $grandTotalAmmount = $subTotalAmmount - $discount;
                                         $set('grand_total_ammount', $grandTotalAmmount);
 
                                         $sizes = $produk ? $produk->sizes->pluck('size', 'id')->toArray() : [];
-                                        $set('product_sizes', $sizes);
+                                        $set('produk_sizes', $sizes);
                                     }
                                 )
                                 ->afterStateHydrated(
@@ -70,19 +72,19 @@ class ProductTransactionForm
                                         if ($produkID) {
                                             $produk = Produk::find($produkID);
                                             $sizes = $produk ? $produk->sizes->pluck('size', 'id')->toArray() : [];
-                                            $set('product_sizes', $sizes);
+                                            $set('produk_sizes', $sizes);
                                         }
                                     }
                                 ),
 
                             // Ukuran produk
-                            Select::make('product_size')
-                                ->label('Quantity')
+                            Select::make('produk_size')
+                                ->label('Produk Size')
                                 ->required()
                                 ->live()
                                 ->options(
                                     function (callable $get) {
-                                        $sizes = $get('product_size');
+                                        $sizes = $get('produk_sizes');
 
                                         return is_array($sizes) ? $sizes : [];
                                     }
@@ -101,7 +103,7 @@ class ProductTransactionForm
                                         $quantity = $state;
                                         $subTotalAmmount = $price * $quantity;
                                         $set('sub_total_ammount', $subTotalAmmount);
-                                        $discount = $get('discount') ?? 0;
+                                        $discount = $get('discount_ammount') ?? 0;
                                         $grandTotalAmmount = $subTotalAmmount - $discount;
                                         $set('grand_total_ammount', $grandTotalAmmount);
                                     }
@@ -113,17 +115,15 @@ class ProductTransactionForm
                                 ->relationship('promoCode', 'code')
                                 ->searchable()
                                 ->preload()
-                                ->nullable()
+                                //->nullable()
                                 ->live()
                                 ->afterStateUpdated(
                                     function ($state, callable $get, callable $set) {
-                                        $price = $get('price');
-                                        $quantity = $state;
-                                        $subTotalAmmount = $price * $quantity;
-                                        $set('sub_total_ammount', $subTotalAmmount);
-                                        $discount = $get('discount') ?? 0;
-                                        $grandTotalAmmount = $subTotalAmmount - $discount;
-                                        $set('grand_total_ammount', $grandTotalAmmount);
+                                        $subTotalAmmount = $get('sub_total_ammount');
+                                        $promoCode = PromoCode::find($state);
+                                        $discount = $promoCode ? $promoCode->discount_ammount : 0;
+                                        $grandTotalAmmount = $subTotalAmmount- $discount;
+                                        $set('grand_total_ammount', $grandTotalAmmount);                                        
                                     }
                                 ),
                         ]),
@@ -182,27 +182,26 @@ class ProductTransactionForm
                     Section::make('Payment Information')
                         ->columns(2)
                         ->schema([
-                            TextInput::make('sub_total_amount')
+                            TextInput::make('sub_total_ammount')
                                 ->label('Sub Total')
                                 ->prefix('IDR')
                                 ->numeric()
-                                ->minValue(0)
-                                ->required()
+                                //->minValue(0)
+                                //->required()
                                 ->readOnly(),
 
-                            TextInput::make('discount_amount')
+                            TextInput::make('discount_ammount')
                                 ->label('Discount Amount')
                                 ->prefix('IDR')
                                 ->numeric()
-                                ->minValue(0)
-                                ->default(0),
+                                ->readOnly(),
 
-                            TextInput::make('grand_total_amount')
+                            TextInput::make('grand_total_ammount')
                                 ->label('Grand Total')
                                 ->prefix('IDR')
                                 ->numeric()
-                                ->minValue(0)
-                                ->required()
+                                //->minValue(0)
+                                //->required()
                                 ->readOnly(),
 
                             ToggleButtons::make('is_paid')
