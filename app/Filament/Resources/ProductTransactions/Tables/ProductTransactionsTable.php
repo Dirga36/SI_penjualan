@@ -5,7 +5,6 @@ namespace App\Filament\Resources\ProductTransactions\Tables;
 use App\Models\ProductTransaction;
 use Filament\Actions\Action as ActionsAction;
 use Filament\Actions\BulkActionGroup;
-use Filament\Tables\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -14,6 +13,7 @@ use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
 use Filament\Notifications\Notification;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -88,10 +88,10 @@ class ProductTransactionsTable
                 IconColumn::make('is_paid')
                     ->label('Paid')
                     ->boolean(),
-                    //->trueIcon('heroicon-o-check-circle')
-                    //->falseIcon('heroicon-o-x-circle')
-                    //->trueColor('success')
-                    //->falseColor('danger'),
+                // ->trueIcon('heroicon-o-check-circle')
+                // ->falseIcon('heroicon-o-x-circle')
+                // ->trueColor('success')
+                // ->falseColor('danger'),
 
                 // Bukti Pembayaran
                 ImageColumn::make('proof')
@@ -158,7 +158,7 @@ class ProductTransactionsTable
                     ->requiresConfirmation()
                     ->modalHeading('Confirm Payment')
                     ->modalDescription('Are you sure you want to mark this transaction as paid?')
-                    ->visible(fn (ProductTransaction $record) => !$record->is_paid)
+                    ->visible(fn (ProductTransaction $record) => ! $record->is_paid)
                     ->action(function (ProductTransaction $record) {
                         $record->update(['is_paid' => true]);
                         Notification::make()
@@ -172,8 +172,8 @@ class ProductTransactionsTable
                     ->label('Download Proof')
                     ->icon(Heroicon::OutlinedArrowDownTray)
                     ->color('info')
-                    ->visible(fn (ProductTransaction $record) => !empty($record->proof))
-                    ->action(fn (ProductTransaction $record) => response()->download(storage_path('app/public/' . $record->proof))),
+                    ->visible(fn (ProductTransaction $record) => ! empty($record->proof))
+                    ->action(fn (ProductTransaction $record) => response()->download(storage_path('app/public/'.$record->proof))),
                 DeleteAction::make(),
             ])
             // Bulk action yang bisa dilakukan pada data terpilih
