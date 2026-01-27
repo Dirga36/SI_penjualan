@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\ProductTransactions\Schemas;
 
-use App\Models\ProductTransaction;
 use App\Models\Produk;
 use App\Models\PromoCode;
 use Filament\Forms\Components\FileUpload;
@@ -10,8 +9,9 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Wizard;
+use Filament\Schemas\Components\Wizard\Step;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 
@@ -25,216 +25,230 @@ class ProductTransactionForm
     {
         return $schema
             ->components([
-                // Section untuk informasi transaksi
-                Grid::make(1)->schema([
-                    Section::make('Transaction Information')
-                        ->columns(2)
+                Wizard::make([
+                    // Section untuk informasi transaksi
+                    Step::make('Transaction Information')
                         ->schema([
-                            // ID Transaksi (auto-generate)
-                            TextInput::make('booking_trx_id')
-                                ->label('Booking Transaction ID')
-                                // ->default(fn () => ProductTransaction::generateUniqueTrxId())
-                                // ->disabled()
-                                // ->dehydrated()
-                                // ->columnSpanFull()
-                                ->required()
-                                ->maxLength(200),
 
-                            // Pilihan produk
-                            Select::make('produk_id')
-                                ->label('Product')
-                                ->relationship('produk', 'name')
-                                ->searchable()
-                                ->preload()
-                                ->required()
-                                ->live()
-                                ->afterStateUpdated(
-                                    function ($state, callable $get, callable $set) {
-                                        $produk = Produk::find($state);
-                                        $price = $produk ? $produk->price : 0;
-                                        $quantity = $get('quantity') ?? 1;
-                                        $subTotalAmmount = $price * $quantity;
+                            Section::make('Transaction Information')
+                                ->columns(2)
+                                ->schema([
+                                    // ID Transaksi (auto-generate)
+                                    TextInput::make('booking_trx_id')
+                                        ->label('Booking Transaction ID')
+                                        // ->default(fn () => ProductTransaction::generateUniqueTrxId())
+                                        // ->disabled()
+                                        // ->dehydrated()
+                                        // ->columnSpanFull()
+                                        ->required()
+                                        ->maxLength(200),
 
-                                        $set('price', $price);
-                                        $set('sub_total_ammount', $subTotalAmmount);
+                                    // Pilihan produk
+                                    Select::make('produk_id')
+                                        ->label('Product')
+                                        ->relationship('produk', 'name')
+                                        ->searchable()
+                                        ->preload()
+                                        ->required()
+                                        ->live()
+                                        ->afterStateUpdated(
+                                            function ($state, callable $get, callable $set) {
+                                                $produk = Produk::find($state);
+                                                $price = $produk ? $produk->price : 0;
+                                                $quantity = $get('quantity') ?? 1;
+                                                $subTotalAmmount = $price * $quantity;
 
-                                        $discount = $get('discount_ammount') ?? 0;
-                                        $grandTotalAmmount = $subTotalAmmount - $discount;
-                                        $set('grand_total_ammount', $grandTotalAmmount);
+                                                $set('price', $price);
+                                                $set('sub_total_ammount', $subTotalAmmount);
 
-                                        $sizes = $produk ? $produk->sizes->pluck('size', 'id')->toArray() : [];
-                                        $set('produk_sizes', $sizes);
-                                    }
-                                )
-                                ->afterStateHydrated(
-                                    function ($state, callable $get, callable $set) {
-                                        $produkID = $state;
-                                        if ($produkID) {
-                                            $produk = Produk::find($produkID);
-                                            $sizes = $produk ? $produk->sizes->pluck('size', 'id')->toArray() : [];
-                                            $set('produk_sizes', $sizes);
-                                        }
-                                    }
-                                ),
+                                                $discount = $get('discount_ammount') ?? 0;
+                                                $grandTotalAmmount = $subTotalAmmount - $discount;
+                                                $set('grand_total_ammount', $grandTotalAmmount);
 
-                            // Ukuran produk
-                            Select::make('produk_size')
-                                ->label('Produk Size')
-                                ->required()
-                                ->live()
-                                ->options(
-                                    function (callable $get) {
-                                        $sizes = $get('produk_sizes');
+                                                $sizes = $produk ? $produk->sizes->pluck('size', 'id')->toArray() : [];
+                                                $set('produk_sizes', $sizes);
+                                            }
+                                        )
+                                        ->afterStateHydrated(
+                                            function ($state, callable $get, callable $set) {
+                                                $produkID = $state;
+                                                if ($produkID) {
+                                                    $produk = Produk::find($produkID);
+                                                    $sizes = $produk ? $produk->sizes->pluck('size', 'id')->toArray() : [];
+                                                    $set('produk_sizes', $sizes);
+                                                }
+                                            }
+                                        ),
 
-                                        return is_array($sizes) ? $sizes : [];
-                                    }
-                                ),
+                                    // Ukuran produk
+                                    Select::make('produk_size')
+                                        ->label('Produk Size')
+                                        ->required()
+                                        ->live()
+                                        ->options(
+                                            function (callable $get) {
+                                                $sizes = $get('produk_sizes');
 
-                            // Jumlah item
-                            TextInput::make('quantity')
-                                ->label('Quantity')
-                                ->prefix('Qty')
-                                ->numeric()
-                                ->required()
-                                ->live()
-                                ->afterStateUpdated(
-                                    function ($state, callable $get, callable $set) {
-                                        $price = $get('price');
-                                        $quantity = $state;
-                                        $subTotalAmmount = $price * $quantity;
-                                        $set('sub_total_ammount', $subTotalAmmount);
-                                        $discount = $get('discount_ammount') ?? 0;
-                                        $grandTotalAmmount = $subTotalAmmount - $discount;
-                                        $set('grand_total_ammount', $grandTotalAmmount);
-                                    }
-                                ),
+                                                return is_array($sizes) ? $sizes : [];
+                                            }
+                                        ),
 
-                            // Kode promo (opsional)
-                            Select::make('promo_code_id')
-                                ->label('Promo Code')
-                                ->relationship('promoCode', 'code')
-                                ->searchable()
-                                ->preload()
-                                // ->nullable()
-                                ->live()
-                                ->afterStateUpdated(
-                                    function ($state, callable $get, callable $set) {
-                                        $subTotalAmmount = $get('sub_total_ammount');
-                                        $promoCode = PromoCode::find($state);
-                                        $discount = $promoCode ? $promoCode->discount_ammount : 0;
-                                        $set('discount_ammount', $discount); // Tambahkan baris ini
-                                        $grandTotalAmmount = $subTotalAmmount - $discount;
-                                        $set('grand_total_ammount', $grandTotalAmmount);
-                                    }
-                                )
-                                ->afterStateHydrated(
-                                    function ($state, callable $get, callable $set) {
-                                        // Untuk menampilkan discount saat edit form
-                                        if ($state) {
-                                            $promoCode = PromoCode::find($state);
-                                            $discount = $promoCode ? $promoCode->discount_ammount : 0;
-                                            $set('discount_ammount', $discount);
-                                        }
-                                    }
-                                ),
+                                    // Jumlah item
+                                    TextInput::make('quantity')
+                                        ->label('Quantity')
+                                        ->prefix('Qty')
+                                        ->numeric()
+                                        ->required()
+                                        ->live()
+                                        ->afterStateUpdated(
+                                            function ($state, callable $get, callable $set) {
+                                                $price = $get('price');
+                                                $quantity = $state;
+                                                $subTotalAmmount = $price * $quantity;
+                                                $set('sub_total_ammount', $subTotalAmmount);
+                                                $discount = $get('discount_ammount') ?? 0;
+                                                $grandTotalAmmount = $subTotalAmmount - $discount;
+                                                $set('grand_total_ammount', $grandTotalAmmount);
+                                            }
+                                        ),
+
+                                    // Kode promo (opsional)
+                                    Select::make('promo_code_id')
+                                        ->label('Promo Code')
+                                        ->relationship('promoCode', 'code')
+                                        ->searchable()
+                                        ->preload()
+                                        // ->nullable()
+                                        ->live()
+                                        ->afterStateUpdated(
+                                            function ($state, callable $get, callable $set) {
+                                                $subTotalAmmount = $get('sub_total_ammount');
+                                                $promoCode = PromoCode::find($state);
+                                                $discount = $promoCode ? $promoCode->discount_ammount : 0;
+                                                $set('discount_ammount', $discount); // Tambahkan baris ini
+                                                $grandTotalAmmount = $subTotalAmmount - $discount;
+                                                $set('grand_total_ammount', $grandTotalAmmount);
+                                            }
+                                        )
+                                        ->afterStateHydrated(
+                                            function ($state, callable $get, callable $set) {
+                                                // Untuk menampilkan discount saat edit form
+                                                if ($state) {
+                                                    $promoCode = PromoCode::find($state);
+                                                    $discount = $promoCode ? $promoCode->discount_ammount : 0;
+                                                    $set('discount_ammount', $discount);
+                                                }
+                                            }
+                                        ),
+                                ]),
+
                         ]),
-                ]),
-
-                // Section untuk informasi pelanggan
-                Grid::make(1)->schema([
-                    Section::make('Customer Information')
-                        ->columns(2)
+                    // Section untuk informasi pelanggan
+                    Step::make('Customer Information')
                         ->schema([
-                            TextInput::make('name')
-                                ->label('Customer Name')
-                                ->required()
-                                ->maxLength(255),
 
-                            TextInput::make('email')
-                                ->label('Email')
-                                ->email()
-                                ->required()
-                                ->maxLength(255),
+                            Section::make('Customer Information')
+                                ->columns(2)
+                                ->schema([
+                                    TextInput::make('name')
+                                        ->label('Customer Name')
+                                        ->required()
+                                        ->maxLength(255),
 
-                            TextInput::make('phone')
-                                ->label('Phone Number')
-                                ->tel()
-                                ->required()
-                                ->maxLength(20),
+                                    TextInput::make('email')
+                                        ->label('Email')
+                                        ->email()
+                                        ->required()
+                                        ->maxLength(255),
+
+                                    TextInput::make('phone')
+                                        ->label('Phone Number')
+                                        ->tel()
+                                        ->required()
+                                        ->maxLength(20),
+                                ]),
+
                         ]),
-                ]),
-
-                // Section untuk informasi pengiriman
-                Grid::make(1)->schema([
-                    Section::make('Shipping Information')
-                        ->columns(2)
+                    // Section untuk informasi pengiriman
+                    Step::make('Shipping Information')
                         ->schema([
-                            TextInput::make('city')
-                                ->label('City')
-                                ->required()
-                                ->maxLength(100),
 
-                            TextInput::make('post_code')
-                                ->label('Post Code')
-                                ->required()
-                                ->maxLength(20),
+                            Section::make('Shipping Information')
+                                ->columns(2)
+                                ->schema([
+                                    TextInput::make('city')
+                                        ->label('City')
+                                        ->required()
+                                        ->maxLength(100),
 
-                            Textarea::make('address')
-                                ->label('Full Address')
-                                ->rows(3)
-                                ->required()
-                                ->columnSpanFull()
-                                ->maxLength(500),
+                                    TextInput::make('post_code')
+                                        ->label('Post Code')
+                                        ->required()
+                                        ->maxLength(20),
+
+                                    Textarea::make('address')
+                                        ->label('Full Address')
+                                        ->rows(3)
+                                        ->required()
+                                        ->columnSpanFull()
+                                        ->maxLength(500),
+                                ]),
+
                         ]),
-                ]),
-
-                // Section untuk informasi pembayaran
-                Grid::make(1)->schema([
-                    Section::make('Payment Information')
-                        ->columns(2)
+                    // Section untuk informasi pembayaran
+                    Step::make('Payment Information')
                         ->schema([
-                            TextInput::make('sub_total_ammount')
-                                ->label('Sub Total')
-                                ->prefix('IDR')
-                                ->numeric()
-                                // ->minValue(0)
-                                // ->required()
-                                ->readOnly(),
 
-                            TextInput::make('discount_ammount')
-                                ->label('Discount Amount')
-                                ->prefix('IDR')
-                                ->numeric()
-                                ->readOnly(),
+                            Section::make('Payment Information')
+                                ->columns(2)
+                                ->schema([
+                                    TextInput::make('sub_total_ammount')
+                                        ->label('Sub Total')
+                                        ->prefix('IDR')
+                                        ->numeric()
+                                        // ->minValue(0)
+                                        // ->required()
+                                        ->readOnly(),
 
-                            TextInput::make('grand_total_ammount')
-                                ->label('Grand Total')
-                                ->prefix('IDR')
-                                ->numeric()
-                                // ->minValue(0)
-                                // ->required()
-                                ->readOnly(),
+                                    TextInput::make('discount_ammount')
+                                        ->label('Discount Amount')
+                                        ->prefix('IDR')
+                                        ->numeric()
+                                        ->readOnly(),
 
-                            ToggleButtons::make('is_paid')
-                                ->label('Apakah Sudah Membayar')
-                                ->boolean()
-                                ->grouped()
-                                ->icons([
-                                    true => Heroicon::OutlinedPencil,
-                                    false => Heroicon::OutlinedClock,
-                                ])
-                                // ->onColor('success')
-                                // ->offColor('danger')
-                                ->default(false),
+                                    TextInput::make('grand_total_ammount')
+                                        ->label('Grand Total')
+                                        ->prefix('IDR')
+                                        ->numeric()
+                                        // ->minValue(0)
+                                        // ->required()
+                                        ->readOnly(),
 
-                            FileUpload::make('proof')
-                                ->label('Payment Proof')
-                                ->image()
-                                ->directory('transactions/proofs')
-                                ->required()
-                                ->columnSpanFull(),
+                                    ToggleButtons::make('is_paid')
+                                        ->label('Apakah Sudah Membayar')
+                                        ->boolean()
+                                        ->grouped()
+                                        ->icons([
+                                            true => Heroicon::OutlinedPencil,
+                                            false => Heroicon::OutlinedClock,
+                                        ])
+                                        // ->onColor('success')
+                                        // ->offColor('danger')
+                                        ->default(false),
+
+                                    FileUpload::make('proof')
+                                        ->label('Payment Proof')
+                                        ->image()
+                                        ->directory('transactions/proofs')
+                                        ->required()
+                                        ->columnSpanFull(),
+                                ]),
+
                         ]),
-                ]),
+                ])
+                ->columns(1)
+                ->columnSpanFull(),
+
             ]);
     }
 }
