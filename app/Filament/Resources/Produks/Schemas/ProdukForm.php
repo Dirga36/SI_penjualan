@@ -70,7 +70,7 @@ class ProdukForm
                             ->addActionLabel('Add to sizes') // Label tombol tambah
                             ->grid(1)
                             ->columnSpanFull(),
-                        
+
                         // Section untuk informasi tambahan produk
                         Fieldset::make('Informasi Tambahan')
                             ->columns(2)

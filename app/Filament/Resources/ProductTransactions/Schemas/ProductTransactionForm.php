@@ -246,8 +246,8 @@ class ProductTransactionForm
 
                         ]),
                 ])
-                ->columns(1)
-                ->columnSpanFull(),
+                    ->columns(1)
+                    ->columnSpanFull(),
 
             ]);
     }
