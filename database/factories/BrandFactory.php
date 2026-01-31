@@ -33,11 +33,9 @@ class BrandFactory extends Factory
             'nike.jpg',
             'adidas.jpg',
             'puma.jpg',
-            'skechers.jpg',
             'new-balance.jpg',
             'reebok.jpg',
             'converse.jpg',
-            'vans.jpg',
             'asics.jpg',
             'timberland.jpg',
         ];
