@@ -22,3 +22,10 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Sample images untuk factories (hanya struktur folder yang di-commit)
+/database/seeders/images/**/*.jpg
+/database/seeders/images/**/*.jpeg
+/database/seeders/images/**/*.png
+/database/seeders/images/**/*.gif
+/database/seeders/images/**/*.webp

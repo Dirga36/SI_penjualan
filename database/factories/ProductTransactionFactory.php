@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\ProductTransaction;
 use App\Models\Produk;
 use App\Models\PromoCode;
+use Database\Factories\Concerns\HasLocalImages;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ProductTransactionFactory extends Factory
 {
+    use HasLocalImages;
     /**
      * Define the model's default state.
      *
@@ -47,7 +49,7 @@ class ProductTransactionFactory extends Factory
             'is_paid' => $this->faker->boolean(60),
             'produk_id' => $produk->id,
             'produk_size' => $this->faker->randomElement(['35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45']),
-            'proof' => $this->faker->imageUrl(400, 400, 'business'),
+            'proof' => $this->getLocalImage('proofs', 400, 400, 'business'),
         ];
     }
 }

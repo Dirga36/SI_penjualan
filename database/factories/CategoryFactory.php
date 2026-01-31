@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Database\Factories\Concerns\HasLocalImages;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CategoryFactory extends Factory
 {
+    use HasLocalImages;
     /**
      * Define the model's default state.
      *
@@ -28,7 +30,7 @@ class CategoryFactory extends Factory
 
         return [
             'name' => $this->faker->randomElement($categories),
-            'icon' => $this->faker->imageUrl(100, 100, 'fashion'),
+            'icon' => $this->getLocalImage('categories', 100, 100, 'fashion'),
         ];
     }
 }

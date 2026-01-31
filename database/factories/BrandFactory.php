@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Database\Factories\Concerns\HasLocalImages;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class BrandFactory extends Factory
 {
+    use HasLocalImages;
     /**
      * Define the model's default state.
      *
@@ -31,7 +33,7 @@ class BrandFactory extends Factory
 
         return [
             'name' => $this->faker->randomElement($brands),
-            'logo' => $this->faker->imageUrl(150, 150, 'business'),
+            'logo' => $this->getLocalImage('brands', 150, 150, 'business'),
         ];
     }
 }

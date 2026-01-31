@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Database\Factories\Concerns\HasLocalImages;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ProdukPhotoFactory extends Factory
 {
+    use HasLocalImages;
     /**
      * Define the model's default state.
      *
@@ -17,7 +19,7 @@ class ProdukPhotoFactory extends Factory
     public function definition(): array
     {
         return [
-            'photo' => $this->faker->imageUrl(400, 400, 'fashion'),
+            'photo' => $this->getLocalImage('products', 400, 400, 'fashion'),
         ];
     }
 }

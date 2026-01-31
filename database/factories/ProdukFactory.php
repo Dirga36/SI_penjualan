@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Brand;
 use App\Models\Category;
+use Database\Factories\Concerns\HasLocalImages;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ProdukFactory extends Factory
 {
+    use HasLocalImages;
     /**
      * Define the model's default state.
      *
@@ -20,7 +22,7 @@ class ProdukFactory extends Factory
     {
         return [
             'name' => $this->faker->words(3, true),
-            'thumbnail' => $this->faker->imageUrl(300, 300, 'fashion'),
+            'thumbnail' => $this->getLocalImage('products', 300, 300, 'fashion'),
             'about' => $this->faker->paragraph(3),
             'price' => $this->faker->numberBetween(100000, 2000000),
             'stock' => $this->faker->numberBetween(1, 100),
