@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
         $produk = Produk::factory()->create([
             'name' => 'Rovlox',
             'about' => 'SSD',
+            'thumbnail' => '#',
             'price' => 1000,
             'stock' => 67,
             'is_popular' => true,
@@ -47,22 +48,22 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Buat 1 transaksi untuk produk tersebut
-        /*ProductTransaction::factory()->create([
-            'name' => 'Caim',
+        ProductTransaction::factory()->create([
+            'name' => 'Dirge',
             'phone' => 1212123344,
             'email' => 'example@email.com',
             'booking_trx_id' => 'TJH1200',
             'city' => 'Wesd',
             'post_code' => '12223',
             'address' => 'Wesd, 12223',
+            'produk_id' => $produk->id,
             'quantity' => 6,
-            'sub_total_ammount' => 12000,
-            'grand_total_ammount' => 10000,
-            'discount_amount' => 2000,
+            'sub_total_ammount' => $produk->price,
+            'discount_ammount' => PromoCode::inRandomOrder()->value('id'),
+            'grand_total_ammount' => $produk->price - PromoCode::inRandomOrder()->value('id'),
             'is_paid' => true,
             'produk_size' => 12,
             'proof' => '#',
-            'produk_id' => $produk->id,
-        ]);*/
+        ]);
     }
 }
