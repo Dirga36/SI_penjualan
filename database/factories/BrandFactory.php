@@ -44,7 +44,7 @@ class BrandFactory extends Factory
 
         return [
             'name' => $this->faker->randomElement($brands),
-            'logo' => '/images/assets-brands/' . $this->faker->randomElement($logos),
+            'logo' => '/images/assets-brands/'.$this->faker->randomElement($logos),
         ];
     }
 }

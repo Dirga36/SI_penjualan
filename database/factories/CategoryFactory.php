@@ -38,7 +38,7 @@ class CategoryFactory extends Factory
 
         return [
             'name' => $this->faker->randomElement($categories),
-            'icon' => '/images/assets-categories/' . $this->faker->randomElement($icons),
+            'icon' => '/images/assets-categories/'.$this->faker->randomElement($icons),
         ];
     }
 }

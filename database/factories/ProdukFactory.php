@@ -28,7 +28,7 @@ class ProdukFactory extends Factory
 
         return [
             'name' => $this->faker->words(3, true),
-            'thumbnail' => '/images/assets-produks/' . $this->faker->randomElement($thumbnails),
+            'thumbnail' => '/images/assets-produks/'.$this->faker->randomElement($thumbnails),
             'about' => $this->faker->paragraph(3),
             'price' => $this->faker->numberBetween(100000, 2000000),
             'stock' => $this->faker->numberBetween(1, 100),
