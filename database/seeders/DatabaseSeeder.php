@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Buat test user
-        User::factory()->create([
+        /*User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-        ]);
+        ]);*/
 
         // Buat kategori (5 kategori)
         Category::factory(5)->create();

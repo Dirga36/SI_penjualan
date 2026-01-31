@@ -20,7 +20,7 @@ class CategoryFactory extends Factory
             'Sepatu Pria',
             'Sepatu Anak',
             'Sandal',
-            'sepatu Bot',
+            'Sepatu Bot',
             'Sneakers',
             'Sepatu Formal',
             'Sepatu Kasual',
