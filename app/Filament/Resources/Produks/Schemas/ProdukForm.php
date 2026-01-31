@@ -10,7 +10,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Grid;
-// use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 // Konfigurasi form untuk produk
@@ -20,7 +19,7 @@ class ProdukForm
     {
         return $schema
             ->components([
-                // Section untuk informasi utama produk
+                // Fieldset untuk informasi utama produk
                 Fieldset::make('Product Information')
                     ->columns(2)
                     ->schema([
@@ -71,7 +70,7 @@ class ProdukForm
                             ->grid(1)
                             ->columnSpanFull(),
 
-                        // Section untuk informasi tambahan produk
+                        // Fieldset untuk informasi tambahan produk
                         Fieldset::make('Informasi Tambahan')
                             ->columns(2)
                             ->schema([

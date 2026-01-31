@@ -44,6 +44,13 @@ class ProductTransactionForm
                                         ->maxLength(200),
 
                                     // Pilihan produk
+                                    /**
+                                     * Ketika produk dipilih, lakukan perhitungan harga dan update field terkait:
+                                     * - Ambil harga produk dari model Produk
+                                     * - Hitung sub total: harga * jumlah
+                                     * - Hitung grand total: sub total - diskon
+                                     * - Update daftar ukuran produk
+                                     */
                                     Select::make('produk_id')
                                         ->label('Product')
                                         ->relationship('produk', 'name')
@@ -53,24 +60,35 @@ class ProductTransactionForm
                                         ->live()
                                         ->afterStateUpdated(
                                             function ($state, callable $get, callable $set) {
+                                                // Ambil produk berdasarkan ID yang dipilih
                                                 $produk = Produk::find($state);
+                                                // Ambil harga produk, default 0 jika tidak ditemukan
                                                 $price = $produk ? $produk->price : 0;
+                                                // Ambil jumlah item, default 1 jika belum diisi
                                                 $quantity = $get('quantity') ?? 1;
+                                                // Hitung sub total harga
                                                 $subTotalAmmount = $price * $quantity;
 
+                                                // Set harga ke state
                                                 $set('price', $price);
+                                                // Set sub total ke state
                                                 $set('sub_total_ammount', $subTotalAmmount);
 
+                                                // Ambil diskon (jika ada), default 0
                                                 $discount = $get('discount_ammount') ?? 0;
+                                                // Hitung grand total: sub total - diskon
                                                 $grandTotalAmmount = $subTotalAmmount - $discount;
+                                                // Set grand total ke state
                                                 $set('grand_total_ammount', $grandTotalAmmount);
 
+                                                // Ambil daftar ukuran produk
                                                 $sizes = $produk ? $produk->sizes->pluck('size', 'id')->toArray() : [];
                                                 $set('produk_sizes', $sizes);
                                             }
                                         )
                                         ->afterStateHydrated(
                                             function ($state, callable $get, callable $set) {
+                                                // Saat form di-load, update daftar ukuran produk sesuai produk yang dipilih
                                                 $produkID = $state;
                                                 if ($produkID) {
                                                     $produk = Produk::find($produkID);
@@ -87,6 +105,7 @@ class ProductTransactionForm
                                         ->live()
                                         ->options(
                                             function (callable $get) {
+                                                // Ambil daftar ukuran produk dari state
                                                 $sizes = $get('produk_sizes');
 
                                                 return is_array($sizes) ? $sizes : [];
@@ -94,6 +113,11 @@ class ProductTransactionForm
                                         ),
 
                                     // Jumlah item
+                                    /**
+                                     * Setiap kali jumlah diubah, lakukan perhitungan ulang sub total dan grand total:
+                                     * - sub total = harga * jumlah
+                                     * - grand total = sub total - diskon
+                                     */
                                     TextInput::make('quantity')
                                         ->label('Quantity')
                                         ->prefix('Qty')
@@ -102,17 +126,27 @@ class ProductTransactionForm
                                         ->live()
                                         ->afterStateUpdated(
                                             function ($state, callable $get, callable $set) {
+                                                // Ambil harga dari state
                                                 $price = $get('price');
+                                                // Jumlah item yang diinput
                                                 $quantity = $state;
+                                                // Hitung sub total
                                                 $subTotalAmmount = $price * $quantity;
                                                 $set('sub_total_ammount', $subTotalAmmount);
+                                                // Ambil diskon
                                                 $discount = $get('discount_ammount') ?? 0;
+                                                // Hitung grand total
                                                 $grandTotalAmmount = $subTotalAmmount - $discount;
                                                 $set('grand_total_ammount', $grandTotalAmmount);
                                             }
                                         ),
 
                                     // Kode promo (opsional)
+                                    /**
+                                     * Jika kode promo dipilih, ambil nilai diskon dari PromoCode dan update grand total:
+                                     * - diskon = promoCode->discount_ammount
+                                     * - grand total = sub total - diskon
+                                     */
                                     Select::make('promo_code_id')
                                         ->label('Promo Code')
                                         ->relationship('promoCode', 'code')
@@ -122,17 +156,21 @@ class ProductTransactionForm
                                         ->live()
                                         ->afterStateUpdated(
                                             function ($state, callable $get, callable $set) {
+                                                // Ambil sub total dari state
                                                 $subTotalAmmount = $get('sub_total_ammount');
+                                                // Cari promo code berdasarkan ID
                                                 $promoCode = PromoCode::find($state);
+                                                // Ambil nilai diskon
                                                 $discount = $promoCode ? $promoCode->discount_ammount : 0;
-                                                $set('discount_ammount', $discount); // Tambahkan baris ini
+                                                $set('discount_ammount', $discount); // Set diskon ke state
+                                                // Hitung grand total
                                                 $grandTotalAmmount = $subTotalAmmount - $discount;
                                                 $set('grand_total_ammount', $grandTotalAmmount);
                                             }
                                         )
                                         ->afterStateHydrated(
                                             function ($state, callable $get, callable $set) {
-                                                // Untuk menampilkan discount saat edit form
+                                                // Untuk menampilkan diskon saat edit form
                                                 if ($state) {
                                                     $promoCode = PromoCode::find($state);
                                                     $discount = $promoCode ? $promoCode->discount_ammount : 0;

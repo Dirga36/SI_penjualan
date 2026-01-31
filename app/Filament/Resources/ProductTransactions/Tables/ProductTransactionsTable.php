@@ -151,6 +151,30 @@ class ProductTransactionsTable
                 ViewAction::make(),
                 EditAction::make(),
                 // Aksi untuk menandai transaksi sebagai sudah dibayar
+                /**
+                 * Action untuk menandai transaksi produk sebagai sudah dibayar
+                 * 
+                 * Menampilkan tombol aksi dengan ikon checkmark berwarna hijau yang memungkinkan user
+                 * untuk mengubah status pembayaran transaksi dari belum dibayar menjadi sudah dibayar.
+                 * 
+                 * Fitur:
+                 * - Label: "Mark as Paid"
+                 * - Ikon: Outlined Check Circle (heroicon)
+                 * - Warna: Success (hijau)
+                 * - Memerlukan konfirmasi sebelum eksekusi
+                 * - Hanya tampil jika transaksi belum dibayar (is_paid == false)
+                 * 
+                 * Modal Konfirmasi:
+                 * - Heading: "Confirm Payment"
+                 * - Deskripsi: "Are you sure you want to mark this transaction as paid?"
+                 * 
+                 * Aksi yang dilakukan:
+                 * - Update status is_paid menjadi true pada database
+                 * - Menampilkan notifikasi sukses dengan pesan konfirmasi pembayaran
+                 * 
+                 * @param ProductTransaction $record Model transaksi produk yang akan diperbarui
+                 * @return void
+                 */
                 ActionsAction::make('markAsPaid')
                     ->label('Mark as Paid')
                     ->icon(Heroicon::OutlinedCheckCircle)
