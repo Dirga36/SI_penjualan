@@ -29,9 +29,22 @@ class BrandFactory extends Factory
             'Timberland',
         ];
 
+        $logos = [
+            'nike.jpg',
+            'adidas.jpg',
+            'puma.jpg',
+            'skechers.jpg',
+            'new-balance.jpg',
+            'reebok.jpg',
+            'converse.jpg',
+            'vans.jpg',
+            'asics.jpg',
+            'timberland.jpg',
+        ];
+
         return [
             'name' => $this->faker->randomElement($brands),
-            'logo' => $this->faker->imageUrl(150, 150, 'business'),
+            'logo' => '/images/assets-brands/' . $this->faker->randomElement($logos),
         ];
     }
 }

@@ -19,6 +19,14 @@ class ProductTransactionFactory extends Factory
      */
     public function definition(): array
     {
+        $proofs = [
+            'proof-1.jpg',
+            'proof-2.jpg',
+            'proof-3.jpg',
+            'proof-4.jpg',
+            'proof-5.jpg',
+        ];
+
         $quantity = $this->faker->numberBetween(1, 5);
         $produk = Produk::factory()->create();
         $subTotal = $produk->price * $quantity;
@@ -47,7 +55,7 @@ class ProductTransactionFactory extends Factory
             'is_paid' => $this->faker->boolean(60),
             'produk_id' => $produk->id,
             'produk_size' => $this->faker->randomElement(['35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45']),
-            'proof' => $this->faker->imageUrl(400, 400, 'business'),
+            'proof' => '/images/assets-product-transactions/' . $this->faker->randomElement($proofs),
         ];
     }
 }

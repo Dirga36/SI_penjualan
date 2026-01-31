@@ -16,8 +16,16 @@ class ProdukPhotoFactory extends Factory
      */
     public function definition(): array
     {
+        $photos = [
+            'product-photo-1.jpg',
+            'product-photo-2.jpg',
+            'product-photo-3.jpg',
+            'product-photo-4.jpg',
+            'product-photo-5.jpg',
+        ];
+
         return [
-            'photo' => $this->faker->imageUrl(400, 400, 'fashion'),
+            'photo' => '/images/assets-produck-photos/' . $this->faker->randomElement($photos),
         ];
     }
 }

@@ -18,18 +18,27 @@ class CategoryFactory extends Factory
     {
         $categories = [
             'Sepatu Pria',
-            'Sepatu Wanita',
-            'Sepatu Anak-anak',
+            'Sepatu Anak',
             'Sandal',
-            'Boots',
+            'sepatu Bot',
             'Sneakers',
-            'Formal Shoes',
-            'Casual Shoes',
+            'Sepatu Formal',
+            'Sepatu Kasual',
+        ];
+
+        $icons = [
+            'sepatu-pria.jpg',
+            'sepatu-anak.jpg',
+            'sandal.jpg',
+            'sepatu-bot.jpg',
+            'sneakers.jpg',
+            'sepatu-formal.jpg',
+            'sepatu-kasual.jpg',
         ];
 
         return [
             'name' => $this->faker->randomElement($categories),
-            'icon' => $this->faker->imageUrl(100, 100, 'fashion'),
+            'icon' => '/images/assets-categories/' . $this->faker->randomElement($icons),
         ];
     }
 }

@@ -18,9 +18,17 @@ class ProdukFactory extends Factory
      */
     public function definition(): array
     {
+        $thumbnails = [
+            'produk-1.jpg',
+            'produk-2.jpg',
+            'produk-3.jpg',
+            'produk-4.jpg',
+            'produk-5.jpg',
+        ];
+
         return [
             'name' => $this->faker->words(3, true),
-            'thumbnail' => $this->faker->imageUrl(300, 300, 'fashion'),
+            'thumbnail' => '/images/assets-produks/' . $this->faker->randomElement($thumbnails),
             'about' => $this->faker->paragraph(3),
             'price' => $this->faker->numberBetween(100000, 2000000),
             'stock' => $this->faker->numberBetween(1, 100),
