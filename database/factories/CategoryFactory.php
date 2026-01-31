@@ -18,13 +18,12 @@ class CategoryFactory extends Factory
     {
         $categories = [
             'Sepatu Pria',
-            'Sepatu Wanita',
-            'Sepatu Anak-anak',
+            'Sepatu Anak',
             'Sandal',
             'Boots',
             'Sneakers',
-            'Formal Shoes',
-            'Casual Shoes',
+            'Sepatu Formal',
+            'Sepatu Kasual'
         ];
 
         return [
