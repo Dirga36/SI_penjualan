@@ -38,9 +38,9 @@ return new class extends Migration
             $table->unsignedBigInteger('quantity');          // Jumlah item yang dibeli
 
             // Harga
-            $table->unsignedBigInteger('sub_total_amount');  // Subtotal sebelum diskon
-            $table->unsignedBigInteger('grand_total_amount'); // Jumlah akhir setelah diskon
-            $table->unsignedBigInteger('discount_amount')->default(0); // Total diskon yang diterapkan
+            $table->unsignedBigInteger('sub_total_ammount');  // Subtotal sebelum diskon
+            $table->unsignedBigInteger('grand_total_ammount'); // Jumlah akhir setelah diskon
+            $table->unsignedBigInteger('discount_ammount')->default(0); // Total diskon yang diterapkan
 
             // Status Pembayaran
             $table->boolean('is_paid')->nullable();          // Flag penyelesaian pembayaran

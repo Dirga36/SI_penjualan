@@ -36,9 +36,13 @@ class CategoryFactory extends Factory
             'sepatu-kasual.jpg',
         ];
 
+        static $index = 0;
+        $currentIndex = $index % count($categories);
+        $index++;
+
         return [
-            'name' => $this->faker->randomElement($categories),
-            'icon' => '/images/assets-categories/' . $this->faker->randomElement($icons),
+            'name' => $categories[$currentIndex],
+            'icon' => '/images/assets-categories/'.$icons[$currentIndex],
         ];
     }
 }

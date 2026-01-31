@@ -17,7 +17,7 @@ class PromoCodeFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => strtoupper($this->faker->bothify('????####')),
+            'code' => strtoupper($this->faker->unique()->bothify('????####')),
             'discount_ammount' => $this->faker->randomElement([10000, 25000, 50000, 75000, 100000]),
         ];
     }

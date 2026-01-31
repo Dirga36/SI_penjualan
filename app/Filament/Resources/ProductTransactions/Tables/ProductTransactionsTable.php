@@ -64,13 +64,13 @@ class ProductTransactionsTable
                     ->alignCenter(),
 
                 // Grand Total
-                TextColumn::make('grand_total_amount')
+                TextColumn::make('grand_total_ammount')
                     ->label('Total')
                     ->money('IDR')
                     ->sortable(),
 
                 // Diskon
-                TextColumn::make('discount_amount')
+                TextColumn::make('discount_ammount')
                     ->label('Discount')
                     ->money('IDR')
                     ->sortable()
@@ -197,7 +197,7 @@ class ProductTransactionsTable
                     ->icon(Heroicon::OutlinedArrowDownTray)
                     ->color('info')
                     ->visible(fn (ProductTransaction $record) => ! empty($record->proof))
-                    ->action(fn (ProductTransaction $record) => response()->download(storage_path('app/public/'.$record->proof))),
+                    ->action(fn (ProductTransaction $record) => response()->download(storage_path('app/private/'.$record->proof))),
                 DeleteAction::make(),
             ])
             // Bulk action yang bisa dilakukan pada data terpilih

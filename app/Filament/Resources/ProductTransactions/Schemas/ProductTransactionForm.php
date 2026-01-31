@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ProductTransactions\Schemas;
 
+use App\Models\ProductTransaction;
 use App\Models\Produk;
 use App\Models\PromoCode;
 use Filament\Forms\Components\FileUpload;
@@ -36,10 +37,9 @@ class ProductTransactionForm
                                     // ID Transaksi (auto-generate)
                                     TextInput::make('booking_trx_id')
                                         ->label('Booking Transaction ID')
-                                        // ->default(fn () => ProductTransaction::generateUniqueTrxId())
-                                        // ->disabled()
-                                        // ->dehydrated()
-                                        // ->columnSpanFull()
+                                        ->default(fn () => ProductTransaction::generateUniqueTrxId())
+                                        ->disabled()
+                                        ->dehydrated()
                                         ->required()
                                         ->maxLength(200),
 

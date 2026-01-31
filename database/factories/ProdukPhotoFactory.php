@@ -25,7 +25,7 @@ class ProdukPhotoFactory extends Factory
         ];
 
         return [
-            'photo' => '/images/assets-produck-photos/' . $this->faker->randomElement($photos),
+            'photo' => '/images/assets-produck-photos/'.$this->faker->randomElement($photos),
         ];
     }
 }

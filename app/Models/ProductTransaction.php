@@ -33,9 +33,9 @@ class ProductTransaction extends Model
         'post_code',            // Kode pos pengiriman
         'address',              // Alamat lengkap pengiriman
         'quantity',             // Jumlah item yang dibeli
-        'sub_total_amount',     // Total sebelum diskon
-        'grand_total_amount',   // Jumlah akhir setelah diskon
-        'discount_amount',      // Total diskon yang diterapkan
+        'sub_total_ammount',    // Total sebelum diskon
+        'grand_total_ammount',  // Jumlah akhir setelah diskon
+        'discount_ammount',     // Total diskon yang diterapkan
         'is_paid',              // Status pembayaran boolean
         'produk_id',            // Foreign key ke produk yang dibeli
         'produk_size',          // Ukuran yang dipilih untuk produk

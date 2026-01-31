@@ -42,9 +42,13 @@ class BrandFactory extends Factory
             'timberland.jpg',
         ];
 
+        static $index = 0;
+        $currentIndex = $index % count($brands);
+        $index++;
+
         return [
-            'name' => $this->faker->randomElement($brands),
-            'logo' => '/images/assets-brands/' . $this->faker->randomElement($logos),
+            'name' => $brands[$currentIndex],
+            'logo' => '/images/assets-brands/'.$logos[$currentIndex],
         ];
     }
 }

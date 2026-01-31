@@ -55,7 +55,7 @@ class ProductTransactionFactory extends Factory
             'is_paid' => $this->faker->boolean(60),
             'produk_id' => $produk->id,
             'produk_size' => $this->faker->randomElement(['35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45']),
-            'proof' => '/images/assets-product-transactions/' . $this->faker->randomElement($proofs),
+            'proof' => '/images/assets-product-transactions/'.$this->faker->randomElement($proofs),
         ];
     }
 }
