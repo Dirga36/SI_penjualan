@@ -163,20 +163,16 @@ php artisan migrate
 
 #### Langkah 5: Buat Admin User
 
-Buat user admin pertama melalui tinker:
+Buat user admin pertama melalui filament:
 
 ```bash
-php artisan tinker
+php artisan make:filament-user
+
+contoh
 ```
-
-Kemudian jalankan:
-
-```php
-\App\Models\User::create([
-    'name' => 'Admin',
-    'email' => 'admin@example.com',
-    'password' => bcrypt('password')
-]);
+    'name' => 'Admin'
+    'email' => 'admin@example.com'
+    'password' => 'password'
 ```
 
 ### 3.2 Konfigurasi File Storage
@@ -277,21 +273,9 @@ Menu utama yang tersedia:
 
 ### 5.1 Layout Dashboard
 
-Dashboard menggunakan Filament Admin Panel dengan komponen:
+Dashboard menggunakan Filament Admin Panel dengan komponen Sidebar Navigation
 
-1. **Top Navigation Bar**
-   - User profile dropdown
-   - Notifications
-   - Search global
-
-2. **Sidebar Navigation**
-   - Menu navigasi utama
-   - Dapat collapse/expand
-
-3. **Content Area**
-   - Area kerja utama
-   - Breadcrumb navigation
-   - Action buttons
+Navigasi sidebar di sebelah kiri dashboard menampilkan menu-menu utama untuk mengakses berbagai fitur sistem.
 
 **[GAMBAR SLOT 11: Annotated Screenshot Layout Dashboard]**
 
@@ -311,9 +295,7 @@ Semua halaman list menggunakan tabel interaktif dengan fitur:
 
 Form input dilengkapi dengan:
 - Validasi real-time
-- Helper text dan tooltips
 - Auto-save draft (pada beberapa form)
-- Responsive design
 
 **[GAMBAR SLOT 13: Screenshot Contoh Form Input]**
 
@@ -341,11 +323,8 @@ Kategori digunakan untuk mengorganisir produk berdasarkan jenisnya. Setiap produ
 2. Isi form dengan data berikut:
 
    **Field yang wajib diisi:**
-   - **Name** - Nama kategori (contoh: "Pakaian Pria")
-   - **Icon** - Icon untuk kategori (format: text/icon class)
-
-   **Field opsional:**
-   - Slug akan otomatis dihasilkan dari Name
+   - **Name** - Nama kategori (contoh: "Sepatu Sekolah")
+   - **Icon** - Icon untuk kategori (format: file gambar)
 
 3. Klik tombol **"Create"** untuk menyimpan
 
@@ -860,14 +839,17 @@ php artisan backup:run
 
 **A:**
 ```bash
-php artisan tinker
-\App\Models\User::create([
-    'name' => 'Nama Admin',
-    'email' => 'email@example.com',
-    'password' => bcrypt('password123')
-]);
-```
+php artisan make:filament-user
 
+Name:
+❯ nama_admin
+
+  Email address:
+❯ email@example.com
+
+  Password:
+❯ password
+```
 ---
 
 ### Q5: Apakah produk yang dihapus bisa dipulihkan?
