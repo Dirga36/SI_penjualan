@@ -25,7 +25,7 @@ class ProductTransactionResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShoppingCart;
 
     // Custom slug
-    //protected static ?string $slug = 'Transactionseeeee';
+    // protected static ?string $slug = 'Transactionseeeee';
 
     // Varian dropdown
     /*
