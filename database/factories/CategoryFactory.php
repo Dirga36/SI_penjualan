@@ -23,7 +23,7 @@ class CategoryFactory extends Factory
             'Boots',
             'Sneakers',
             'Sepatu Formal',
-            'Sepatu Kasual'
+            'Sepatu Kasual',
         ];
 
         return [
