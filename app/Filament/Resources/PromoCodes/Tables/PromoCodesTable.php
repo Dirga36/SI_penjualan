@@ -3,10 +3,12 @@
 namespace App\Filament\Resources\PromoCodes\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -35,7 +37,9 @@ class PromoCodesTable
             ])
             // Aksi yang tersedia untuk setiap baris data
             ->recordActions([
+                ViewAction::make(),   // Tombol untuk melihat detail
                 EditAction::make(),   // Tombol untuk mengedit
+                DeleteAction::make(), // Tombol untuk menghapus
             ])
             // Aksi massal yang bisa dilakukan pada data terpilih
             ->toolbarActions([
