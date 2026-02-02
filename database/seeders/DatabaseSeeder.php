@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\ProductTransaction;
 use App\Models\Produk;
 use App\Models\PromoCode;
 use App\Models\User;
