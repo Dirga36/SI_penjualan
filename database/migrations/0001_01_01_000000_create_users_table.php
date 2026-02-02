@@ -24,11 +24,12 @@ return new class extends Migration
             $table->id();                                      // Primary key auto-increment
             $table->string('name');                            // Nama lengkap user
             $table->string('email')->unique();                 // Alamat email (unik, digunakan untuk login)
-            $table->timestamp('email_verified_at')->nullable(); // Timestamp verifikasi email
+            $table->timestamp('email_verified_at')->nullable();// Timestamp verifikasi email
             $table->string('password');                        // Password yang di-hash
             $table->rememberToken();                           // Token untuk fungsi "ingat saya"
             $table->timestamps();                              // created_at dan updated_at
-        });
+            $table->softDeletes();                             // deleted_at untuk soft deletion
+       });
 
         // Tabel password reset tokens untuk fungsi lupa password
         Schema::create('password_reset_tokens', function (Blueprint $table) {
