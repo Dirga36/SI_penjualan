@@ -4,12 +4,12 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\ProductTransaction;
 use App\Models\Produk;
 use App\Models\PromoCode;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,19 +36,10 @@ class DatabaseSeeder extends Seeder
         PromoCode::factory(5)->create();
 
         // Buat 1 produk
-        $produk = Produk::factory()->create([
-            'name' => 'Rovlox',
-            'about' => 'SSD',
-            'thumbnail' => '#',
-            'price' => 1000,
-            'stock' => 67,
-            'is_popular' => true,
-            'category_id' => Category::inRandomOrder()->value('id'),
-            'brand_id' => Brand::inRandomOrder()->value('id'),
-        ]);
+        $produk = Produk::factory()->create();
 
         // Buat 1 transaksi untuk produk tersebut
-        ProductTransaction::factory()->create([
+        DB::table('product_transactions')->insert([
             'name' => 'Dirge',
             'phone' => 1212123344,
             'email' => 'example@email.com',

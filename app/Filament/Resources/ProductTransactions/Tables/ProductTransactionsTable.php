@@ -97,6 +97,7 @@ class ProductTransactionsTable
                 ImageColumn::make('proof')
                     ->label('Proof')
                     ->square()
+                    ->defaultImageUrl(url('https://placehold.co/400?text=No+Image'))
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 // Email
@@ -196,7 +197,7 @@ class ProductTransactionsTable
                     ->label('Download Proof')
                     ->icon(Heroicon::OutlinedArrowDownTray)
                     ->color('info')
-                    ->visible(fn (ProductTransaction $record) => ! empty($record->proof))
+                    ->visible(fn (ProductTransaction $record) => $record->proof !== '#')
                     ->action(fn (ProductTransaction $record) => response()->download(storage_path('app/private/'.$record->proof))),
                 DeleteAction::make(),
             ])
