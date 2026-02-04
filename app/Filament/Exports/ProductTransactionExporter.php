@@ -77,10 +77,10 @@ class ProductTransactionExporter extends Exporter
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your product transaction export has completed and ' . Number::format($export->successful_rows) . ' ' . str('row')->plural($export->successful_rows) . ' exported.';
+        $body = 'Your product transaction export has completed and '.Number::format($export->successful_rows).' '.str('row')->plural($export->successful_rows).' exported.';
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . Number::format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to export.';
+            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to export.';
         }
 
         return $body;
@@ -88,14 +88,14 @@ class ProductTransactionExporter extends Exporter
 
     public function getXlsxCellStyle(): ?Style
     {
-        return (new Style())
-        ->setFontBold()
-        ->setFontItalic()
-        ->setFontSize(14)
-        ->setFontName('Consolas')
-        ->setFontColor(Color::rgb(255, 255, 77))
-        ->setBackgroundColor(Color::rgb(0, 0, 0))
-        ->setCellAlignment(CellAlignment::CENTER)
-        ->setCellVerticalAlignment(CellVerticalAlignment::CENTER);
+        return (new Style)
+            ->setFontBold()
+            ->setFontItalic()
+            ->setFontSize(14)
+            ->setFontName('Consolas')
+            ->setFontColor(Color::rgb(255, 255, 77))
+            ->setBackgroundColor(Color::rgb(0, 0, 0))
+            ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER);
     }
 }
