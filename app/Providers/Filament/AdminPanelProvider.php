@@ -2,8 +2,8 @@
 
 namespace App\Providers\Filament;
 
-use Awcodes\Overlook\Widgets\OverlookWidget;
 use Awcodes\Overlook\OverlookPlugin;
+use Awcodes\Overlook\Widgets\OverlookWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
