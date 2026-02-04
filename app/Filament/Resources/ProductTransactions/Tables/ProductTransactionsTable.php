@@ -52,10 +52,10 @@ class ProductTransactionsTable
                     ->toggleable(),
 
                 // Ukuran Produk
-                TextColumn::make('produk_size')
+                /*TextColumn::make('produk_size')
                     ->label('Size')
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(),*/
 
                 // Jumlah
                 TextColumn::make('quantity')
@@ -85,7 +85,7 @@ class ProductTransactionsTable
 
                 // Status Pembayaran
                 IconColumn::make('is_paid')
-                    ->label('Paid')
+                    ->label('Is Paid')
                     ->boolean()
                     ->sortable(),
                 // ->trueIcon('heroicon-o-check-circle')

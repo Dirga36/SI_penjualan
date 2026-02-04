@@ -263,7 +263,7 @@ class ProductTransactionForm
                                         ->readOnly(),
 
                                     ToggleButtons::make('is_paid')
-                                        ->label('Has Paid?')
+                                        ->label('Is Paid')
                                         ->boolean()
                                         ->grouped()
                                         ->icons([
@@ -285,7 +285,8 @@ class ProductTransactionForm
                         ]),
                 ])
                     ->columns(1)
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->skippable(),
 
             ]);
     }
