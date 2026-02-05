@@ -186,7 +186,7 @@ class ProductTransactionsTable
                     ->requiresConfirmation()
                     ->modalHeading('Confirm Payment')
                     ->modalDescription('Are you sure you want to mark this transaction as paid?')
-                    ->visible(fn(ProductTransaction $record) => ! $record->is_paid)
+                    ->visible(fn (ProductTransaction $record) => ! $record->is_paid)
                     ->action(function (ProductTransaction $record) {
                         $record->update(['is_paid' => true]);
                         Notification::make()
@@ -200,8 +200,8 @@ class ProductTransactionsTable
                     ->label('Download Proof')
                     ->icon(Heroicon::OutlinedArrowDownTray)
                     ->color('info')
-                    ->visible(fn(ProductTransaction $record) => $record->proof !== '#')
-                    ->action(fn(ProductTransaction $record) => response()->download(storage_path('app/private/' . $record->proof))),
+                    ->visible(fn (ProductTransaction $record) => $record->proof !== '#')
+                    ->action(fn (ProductTransaction $record) => response()->download(storage_path('app/private/'.$record->proof))),
                 DeleteAction::make(),
             ])
             // Bulk action yang bisa dilakukan pada data terpilih
