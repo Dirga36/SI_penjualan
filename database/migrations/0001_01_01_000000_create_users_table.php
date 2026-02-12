@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('password');                        // Password yang di-hash
             $table->rememberToken();                           // Token untuk fungsi "ingat saya"
             $table->timestamps();                              // created_at dan updated_at
+            $table->softDeletes();                             // deleted_at untuk soft deletion
         });
 
         // Tabel password reset tokens untuk fungsi lupa password

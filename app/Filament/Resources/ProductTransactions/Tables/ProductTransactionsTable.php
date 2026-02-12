@@ -2,12 +2,15 @@
 
 namespace App\Filament\Resources\ProductTransactions\Tables;
 
+use App\Filament\Exports\ProductTransactionExporter;
 use App\Models\ProductTransaction;
 use Filament\Actions\Action as ActionsAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ExportAction;
+use Filament\Actions\ExportBulkAction as ActionsExportBulkAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
@@ -207,7 +210,11 @@ class ProductTransactionsTable
                     DeleteBulkAction::make(),
                     ForceDeleteBulkAction::make(),
                     RestoreBulkAction::make(),
+                    ActionsExportBulkAction::make()->exporter(ProductTransactionExporter::class),
                 ]),
+            ])
+            ->headerActions([
+                ExportAction::make()->exporter(ProductTransactionExporter::class),
             ]);
     }
 }
